@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
 <title>CyberZain Portfolio</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="icon" type="image/jpeg" sizes="64x64"
@@ -1535,12 +1535,12 @@ pointer-events:none; /* TANPA CONTROL */
     }
 
     .player {
-        padding: 20px;
-        border-radius: 18px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.08);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 0 38px #8800ff33;
+        padding: 24px 20px 20px;
+        border-radius: 24px;
+        background: linear-gradient(160deg, rgba(0,30,50,0.95) 0%, rgba(0,10,30,0.98) 100%);
+        border: 1px solid rgba(0,217,255,0.2);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 0 40px rgba(0,217,255,0.15), 0 8px 32px rgba(0,0,0,0.5);
     }
 
     .brand { 
@@ -1560,28 +1560,39 @@ pointer-events:none; /* TANPA CONTROL */
 
     .cd-box { 
       text-align:center; 
-      margin: 6px 0 18px;
-      }
+      margin: 10px 0 20px;
+      position: relative;
+    }
+
     .cd {
-        width: 160px;
-        height:160px;
-        border-radius:50%;
+        width: 210px !important;
+        height: 210px !important;
+        border-radius: 50% !important;
         margin: 0 auto;
-        background-size:cover;
-        background-position:center;
-        border:5px solid rgba(255,255,255,0.35);
-        box-shadow: 0 0 18px #00d9ff;
-        transform-origin:center;
-        transition: transform .35s ease, box-shadow .35s ease;
-        animation: spin 10s linear infinite;
+        background-size: cover;
+        background-position: center;
+        border: 5px solid #00d9ff;
+        box-shadow: 0 0 0 12px rgba(0,217,255,0.12), 0 0 35px rgba(0,217,255,0.6), 0 0 60px rgba(0,217,255,0.25);
+        transform-origin: center;
+        transition: box-shadow .35s ease;
+        animation: spin 12s linear infinite;
         animation-play-state: paused;
+        cursor: pointer;
+        position: relative;
+        clip-path: none !important;
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+    }
+    .cd::after {
+      content: none;
     }
     @keyframes spin { 
-      from {transform:rotate(0)} to {transform:rotate(360deg)} }
+      from {transform:rotate(0deg)} to {transform:rotate(360deg)} }
     .cd.playing { 
-      animation-play-state: running; 
-      transform: scale(1.06) translateY(-6px); 
-      box-shadow:0 0 8px #00d9ff,0 0 30px #00d9ff; }
+      animation-play-state: running;
+      box-shadow: 0 0 0 8px rgba(0,217,255,0.12), 0 0 50px rgba(0,217,255,0.5);
+      border-color: #00d9ff;
+    }
 
     .visualizer { 
       display:flex; 
@@ -1627,61 +1638,112 @@ pointer-events:none; /* TANPA CONTROL */
         box-shadow:0 0 5px #00CED1;
     }
     .controls { 
-      display:flex; 
-      gap:8px; 
-      margin:12px 0; 
-      align-items:center; 
-      justify-content:center;
-      }
+      display: flex; 
+      gap: 16px; 
+      margin: 16px 0 10px; 
+      align-items: center; 
+      justify-content: center;
+    }
     .controls button { 
-      background:none;
-      border:none;
-      color:white;
-      font-size:22px; 
-      cursor:pointer; 
-      padding:10px; 
-      border-radius:8px;
-      }
-
-    .yt-info { 
-      text-align:center; 
-      margin-top:8px; }
-    .yt-info h2 { 
-      font-size:18px; 
-      margin-bottom:6px; 
-      white-space:nowrap; 
-      overflow:hidden; 
-      text-overflow:ellipsis;
-      }
-    .yt-info p { 
-      font-size:13px; 
-      opacity:0.8; margin:0; }
-
-    .yt-bar { 
-      width:100%; 
-      height:8px; 
-      background:#222; 
-      border-radius:8px; 
-      position:relative; 
-      cursor:pointer; 
-      margin-top:10px;
-      }
-    #progress { 
-      width:0%; 
-      height:100%; 
-      background:linear-gradient(135deg,#00d9ff,#00d9ff); 
-      border-radius:8px; 
-      transition: width .12s linear;
-      box-shadow:0 0 14px #00d9ff;
-      
+      background: rgba(0,217,255,0.08);
+      border: 1px solid rgba(0,217,255,0.2);
+      color: white;
+      font-size: 20px; 
+      cursor: pointer; 
+      padding: 12px 16px; 
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+    }
+    .controls button:hover {
+      background: rgba(0,217,255,0.2);
+      border-color: #00d9ff;
+      box-shadow: 0 0 12px rgba(0,217,255,0.3);
+      transform: scale(1.08);
+    }
+    .controls button:active { transform: scale(0.95); }
+    #playBtn {
+      width: 64px !important;
+      height: 64px !important;
+      font-size: 26px !important;
+      background: linear-gradient(135deg, rgba(0,217,255,0.25), rgba(0,100,180,0.3)) !important;
+      border: 2px solid #00d9ff !important;
+      box-shadow: 0 0 20px rgba(0,217,255,0.3) !important;
+    }
+    #playBtn:hover {
+      box-shadow: 0 0 30px rgba(0,217,255,0.6) !important;
     }
 
+    .yt-info { 
+      text-align: center; 
+      margin-top: 12px;
+      padding: 0 8px;
+    }
+    .yt-info h2 { 
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px; 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+    .yt-info p { 
+      font-size: 13px; 
+      color: rgba(0,217,255,0.8);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .yt-bar { 
+      width: 100%; 
+      height: 5px; 
+      background: rgba(255,255,255,0.1); 
+      border-radius: 10px; 
+      position: relative; 
+      cursor: pointer; 
+      margin-top: 14px;
+      transition: height 0.2s ease;
+    }
+    .yt-bar:hover {
+      height: 7px;
+    }
+    .yt-bar:hover #seekThumb {
+      opacity: 1;
+    }
+    #progress { 
+      width: 0%; 
+      height: 100%; 
+      background: linear-gradient(90deg, #00d9ff, #00aaff); 
+      border-radius: 10px; 
+      transition: width .1s linear;
+      box-shadow: 0 0 8px rgba(0,217,255,0.6);
+      position: relative;
+    }
+    #seekThumb {
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px; height: 14px;
+      background: #00d9ff;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #00d9ff;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
     .time-row { 
-      display:flex; 
-      justify-content:space-between; 
-      font-size:13px; 
-      opacity:0.85; 
-      margin-top:6px; }
+      display: flex; 
+      justify-content: space-between; 
+      font-size: 12px; 
+      color: rgba(255,255,255,0.6); 
+      margin-top: 8px;
+      padding: 0 2px;
+    }
+    .time-row span { font-variant-numeric: tabular-nums; }
 
     .playlist { 
       max-height:300px; 
@@ -2226,17 +2288,6 @@ pointer-events:none; /* TANPA CONTROL */
     box-shadow: 0 -4px 20px rgba(255, 0, 0, 0.3);
 }
 
-#ai.angry-theme .input-area::after {
-    content: '';
-    position: absolute;
-    bottom: -100px;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background: rgba(30, 0, 0, 0.97);
-    z-index: 9;
-}
-
 #ai.angry-theme .input-container {
     background: rgba(255, 0, 0, 0.06);
     border-color: rgba(255, 0, 0, 0.3);
@@ -2633,30 +2684,13 @@ pointer-events:none; /* TANPA CONTROL */
     overflow-y: auto;
     overflow-x: hidden;
     padding: 24px;
+    padding-bottom: 70px;
     display: flex;
     flex-direction: column;
     scroll-behavior: smooth;
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
-}
-
-#ai .chat-container::-webkit-scrollbar {
-    width: 4px;
-}
-
-#ai .chat-container::-webkit-scrollbar-track {
-    background: rgba(0, 217, 255, 0.05);
-    border-radius: 4px;
-}
-
-#ai .chat-container::-webkit-scrollbar-thumb {
-    background: var(--primary-cyan);
-    border-radius: 4px;
-}
-
-#ai .chat-container::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-dark);
 }
 
 /* Welcome Screen */
@@ -3089,39 +3123,173 @@ pointer-events:none; /* TANPA CONTROL */
 
 /* Input Area */
 #ai .input-area {
-    padding: 12px 16px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: 10px 16px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     background: #070f1a;
-    border-top: none;
-    backdrop-filter: none;
-    position: relative;
-    z-index: 10;
-}
-
-#ai .input-area::after {
-    content: '';
-    position: absolute;
-    bottom: -100px;
+    border-top: 2px solid rgba(0, 217, 255, 0.6);
+    box-shadow: 0 -4px 20px rgba(0, 217, 255, 0.3);
+    position: fixed;
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 100px;
-    background: #070f1a;
-    z-index: 9;
+    z-index: 999;
+}
+
+
+#ai .gear-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    opacity: 0;
+    margin-right: -46px;
+    pointer-events: none;
+    transition: opacity 0.3s ease, margin-right 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.2s;
+    z-index: 2;
+    align-self: flex-end;
 }
 
 #ai .input-container {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
+    flex: 1;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--border-color);
     border-radius: 999px;
-    padding: 6px 6px 6px 14px;
+    padding: 0 4px 0 16px;
+    height: 46px;
     box-shadow: 0 4px 24px rgba(0, 217, 255, 0.12), 0 2px 8px rgba(0,0,0,0.4);
     backdrop-filter: blur(12px);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: box-shadow 0.35s ease, border-color 0.35s ease, border-radius 0.3s ease, height 0.3s ease;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#ai .input-container.multiline {
+    border-radius: 20px;
+    height: auto;
+    min-height: 46px;
+    padding: 10px 6px 10px 16px;
+    align-items: flex-end;
+}
+
+#ai .input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#ai .gear-inside {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+    transition: opacity 0.3s ease, width 0.3s ease, margin 0.3s ease;
+    overflow: hidden;
+    align-self: center;
+}
+
+#ai .gear-inside.hidden {
+    opacity: 0;
+    width: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+#ai .input-container {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 8px 6px 8px 16px;
+    min-height: 46px;
+    box-shadow: 0 4px 24px rgba(0, 217, 255, 0.12), 0 2px 8px rgba(0,0,0,0.4);
+    backdrop-filter: blur(12px);
+    transition: box-shadow 0.35s ease, border-color 0.35s ease, border-radius 0.3s ease;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+#ai .input-container.multiline {
+    border-radius: 20px;
+    align-items: flex-end;
+}
+
+#ai .input-container.focused {
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.6), 0 0 24px rgba(0, 217, 255, 0.3);
+    border-color: var(--primary-cyan);
+}
+
+#ai.angry-theme .input-container.focused {
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.6), 0 0 24px rgba(255, 0, 0, 0.3);
+    border-color: #ff0000;
+}
+
+#ai .gear-btn.visible {
+    opacity: 1;
+    margin-right: 8px;
+    border-color: var(--border-color);
+    pointer-events: all;
+    box-shadow: 0 4px 24px rgba(0, 217, 255, 0.12), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+#ai .gear-btn.visible.focused {
+    border-color: var(--primary-cyan);
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.6), 0 0 24px rgba(0, 217, 255, 0.3);
+}
+
+#ai.angry-theme .gear-btn.visible.focused {
+    border-color: #ff0000;
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.6), 0 0 24px rgba(255, 0, 0, 0.3);
+}
+#ai.angry-theme .gear-btn.visible {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 20px rgba(255, 0, 0, 0.25);
+}
+
+#ai .gear-inside:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--primary-cyan);
+}
+
+#ai .gear-btn:hover {
+    background: rgba(255,255,255,0.12);
+    color: var(--primary-cyan);
+}
+
+#ai.angry-theme .gear-btn {
+    border-color: rgba(255,0,0,0.3);
+}
+
+#ai.angry-theme .gear-btn:hover {
+    color: #ff4444;
 }
 
 #ai .input-container:focus-within {
@@ -3153,11 +3321,13 @@ pointer-events:none; /* TANPA CONTROL */
 #ai .input-wrapper {
     flex: 1;
     position: relative;
+    min-width: 0;
+    overflow: hidden;
 }
 
 #ai #userInput {
     width: 100%;
-    padding: 8px 50px 8px 0;
+    padding: 0;
     border-radius: 0;
     border: none;
     background: transparent;
@@ -3165,11 +3335,19 @@ pointer-events:none; /* TANPA CONTROL */
     font-size: 15px;
     font-family: inherit;
     resize: none;
+    height: auto;
     max-height: 120px;
     overflow-y: auto;
+    overflow-x: hidden;
     transition: none;
     line-height: 1.5;
     outline: none;
+    text-align: left;
+    align-self: center;
+    word-break: break-word;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+}
 }
 
 #ai #userInput:focus {
@@ -3184,21 +3362,31 @@ pointer-events:none; /* TANPA CONTROL */
 }
 
 #ai #userInput::-webkit-scrollbar {
-    width: 4px;
+    display: none;
 }
 
 #ai #userInput::-webkit-scrollbar-thumb {
-    background: var(--primary-cyan);
-    border-radius: 3px;
+    display: none;
+}
+
+#ai .chat-container::-webkit-scrollbar {
+    display: none;
+}
+
+#ai .chat-container::-webkit-scrollbar-track {
+    display: none;
+}
+
+#ai .chat-container::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+#ai .chat-container::-webkit-scrollbar-thumb:hover {
+    display: none;
 }
 
 #ai .char-counter {
-    position: absolute;
-    right: 6px;
-    bottom: 8px;
-    font-size: 10px;
-    color: var(--text-muted);
-    pointer-events: none;
+    display: none;
 }
 
 #ai #sendBtn {
@@ -3216,6 +3404,9 @@ pointer-events:none; /* TANPA CONTROL */
     transition: all 0.3s ease;
     box-shadow: 0 2px 10px rgba(0, 217, 255, 0.4);
     flex-shrink: 0;
+    align-self: center;
+    position: relative;
+    z-index: 1;
 }
 
 #ai #sendBtn:hover:not(:disabled) {
@@ -4182,25 +4373,29 @@ pointer-events:none; /* TANPA CONTROL */
 
         <!-- Input Area -->
         <div class="input-area">
-            <div class="input-container">
-                <button class="attach-btn" onclick="openSettings()" title="Settings">
+            <div class="input-row">
+                <button class="gear-btn" id="gearBtn" onclick="openSettings()" title="Settings">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <div class="input-container">
+                    <button class="attach-btn gear-inside" id="gearInside" onclick="openSettings()" title="Settings">
                         <i class="fa-solid fa-gear"></i>
                     </button>
-                                    
-                <div class="input-wrapper">
-                    <textarea 
-                        id="userInput" 
-                        placeholder="Ketik pesan Anda di sini..." 
-                        rows="1"
-                        maxlength="2000"
-                        onkeydown="handleKeyPress(event)"
-                        oninput="autoResize(this)"
-                    ></textarea>
-                    <div class="char-counter" id="charCounter">0/2000</div>
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="userInput" 
+                            placeholder="Balasan Untuk ZainAI" 
+                            rows="1"
+                            maxlength="2000"
+                            onkeydown="handleKeyPress(event)"
+                            oninput="autoResize(this)"
+                        ></textarea>
+                        <div class="char-counter" id="charCounter">0/2000</div>
+                    </div>
+                    <button id="sendBtn" onclick="sendMessage()" disabled title="Send Message">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
                 </div>
-                <button id="sendBtn" onclick="sendMessage()" disabled title="Send Message">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
             </div>
         </div>
     </div>
@@ -4240,6 +4435,25 @@ pointer-events:none; /* TANPA CONTROL */
                         </button>
                     </div>
                     <small class="settings-hint">Beli Token di Telegram Owner <a href="https://t.me/alwysprtyfx" target="_blank">@alwysprtyfx</a></small>
+                </div>
+
+                <div class="settings-group">
+                    <label class="settings-label">
+                        <i class="fa-solid fa-image"></i>
+                        Token Generate Gambar (HuggingFace)
+                    </label>
+                    <div class="input-with-icon">
+                        <input 
+                            type="password" 
+                            id="hfTokenInput" 
+                            class="settings-input" 
+                            placeholder="Masukkan Token HuggingFace (hf_...)"
+                        >
+                        <button class="toggle-password" onclick="togglePassword('hfTokenInput')">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                    <small class="settings-hint">Daftar gratis di <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co</a> → buat token Read</small>
                 </div>
 
                 <div class="settings-group">
@@ -4355,9 +4569,41 @@ pointer-events:none; /* TANPA CONTROL */
                         </ul>
                     </div>
                 </div>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-key"></i>
+                    <div style="min-width:0;flex:1;">
+                        <strong>API Token</strong>
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:5px;">
+                            <code id="apiTokenText" style="font-size:11px;color:#00d9ff;word-break:break-all;white-space:normal;background:rgba(0,0,0,0.25);padding:4px 7px;border-radius:6px;flex:1;min-width:0;font-family:'Courier New',monospace;">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</code>
+                            <button onclick="copyApiToken()" id="copyTokenBtn" style="flex-shrink:0;background:rgba(0,217,255,0.15);border:1px solid #00d9ff;color:#00d9ff;padding:5px 9px;border-radius:6px;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:4px;transition:0.2s;">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+    <script>
+    function copyApiToken() {
+        const text = document.getElementById('apiTokenText').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('copyTokenBtn');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            btn.style.background = 'rgba(0,255,136,0.15)';
+            btn.style.borderColor = '#00ff88';
+            btn.style.color = '#00ff88';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-copy"></i>';
+                btn.style.background = 'rgba(0,217,255,0.15)';
+                btn.style.borderColor = '#00d9ff';
+                btn.style.color = '#00d9ff';
+            }, 2000);
+        });
+    }
+    </script>
     <script>
     // Global variables
 let chatHistories = { worm: [], normal: [] };
@@ -4369,6 +4615,35 @@ let maxTokens = 4096; // Fixed max tokens
 let responseLength = localStorage.getItem('responseLength') || 'short'; // Default: short
 let responseStyle = localStorage.getItem('responseStyle') || 'neutral'; // Default: neutral (no emoji)
 let isGenerating = false; // Flag saat AI sedang balas
+let userLocation = null; // Simpan lokasi user
+
+// Ambil lokasi user pakai GPS (akurat 100% di web HTTPS)
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            const lat = pos.coords.latitude.toFixed(6);
+            const lon = pos.coords.longitude.toFixed(6);
+            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+                .then(r => r.json())
+                .then(data => {
+                    const addr = data.address || {};
+                    const kota = addr.city || addr.town || addr.village || addr.county || '';
+                    const kecamatan = addr.suburb || addr.neighbourhood || '';
+                    const prov = addr.state || '';
+                    const negara = addr.country || '';
+                    userLocation = `${kecamatan ? kecamatan + ', ' : ''}${kota}${prov ? ', ' + prov : ''}${negara ? ', ' + negara : ''} (koordinat: ${lat}, ${lon})`;
+                })
+                .catch(() => {
+                    userLocation = `koordinat: ${lat}, ${lon}`;
+                });
+        },
+        (err) => {
+            // GPS ditolak user, tidak pakai IP supaya tidak ngawur
+            userLocation = null;
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
+}
 
 function getWelcomeScreenHTML() {
     return `
@@ -6569,7 +6844,28 @@ function addMessageInstant(text, type) {
             } else {
                 const utter = new SpeechSynthesisUtterance(text.replace(/[*`#]/g, ''));
                 utter.lang = 'id-ID';
-                utter.rate = 1;
+                utter.rate = 1.20;
+                utter.pitch = 1;
+                utter.volume = 1;
+                const setBestVoice1 = () => {
+                    const voices = window.speechSynthesis.getVoices();
+                    const preferred = [
+                        v => v.lang === 'id-ID' && v.localService,
+                        v => v.lang === 'id-ID',
+                        v => v.lang.startsWith('id'),
+                        v => v.lang === 'en-US' && v.localService,
+                        v => v.lang === 'en-US',
+                    ];
+                    for (const fn of preferred) {
+                        const found = voices.find(fn);
+                        if (found) { utter.voice = found; break; }
+                    }
+                };
+                if (window.speechSynthesis.getVoices().length > 0) {
+                    setBestVoice1();
+                } else {
+                    window.speechSynthesis.onvoiceschanged = setBestVoice1;
+                }
                 utter.onend = () => {
                     isSpeaking = false;
                     speakBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
@@ -6587,7 +6883,7 @@ function addMessageInstant(text, type) {
 
     messageDiv.appendChild(contentDiv);
     container.appendChild(messageDiv);
-    container.scrollTop = container.scrollHeight;
+    scrollChatToBottom();
 }
 
 function renderChatFromHistory(history) {
@@ -6606,6 +6902,21 @@ function renderChatFromHistory(history) {
         if (history[i]) addMessageInstant(history[i].content, 'user');
         if (history[i+1]) addMessageInstant(history[i+1].content, 'ai');
     }
+}
+
+function scrollChatToBottom() {
+    const container = document.getElementById('chatContainer');
+    if (!container) return;
+    let spacer = document.getElementById('chat-end-spacer');
+    if (!spacer) {
+        spacer = document.createElement('div');
+        spacer.id = 'chat-end-spacer';
+        spacer.style.cssText = 'height:30px;min-height:30px;flex-shrink:0;width:100%;';
+        container.appendChild(spacer);
+    } else if (spacer.nextSibling) {
+        container.appendChild(spacer);
+    }
+    container.scrollTop = container.scrollHeight;
 }
 
 // Initialize on page load
@@ -6725,6 +7036,11 @@ function selectResponseStyle(style) {
             renderChatFromHistory(chatHistory);
             updateWelcomeScreenForWormMode(true);
             
+            // Scroll ke atas
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const chatContainer = document.getElementById('chatContainer');
+            if (chatContainer) chatContainer.scrollTop = 0;
+            
             // Hapus loading overlay
             const overlay = document.getElementById('wormLoadingOverlay');
             if (overlay) overlay.remove();
@@ -6738,6 +7054,12 @@ function selectResponseStyle(style) {
         chatHistory = chatHistories.normal;
         renderChatFromHistory(chatHistory);
         updateWelcomeScreenForWormMode(false);
+        
+        // Scroll ke atas
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const chatContainer = document.getElementById('chatContainer');
+        if (chatContainer) chatContainer.scrollTop = 0;
+        
         if (style === 'fun') {
             showNotification('Mode Informal aktif! Siap ngobrol santai!', 'success');
         } else {
@@ -6749,6 +7071,12 @@ function selectResponseStyle(style) {
 // Update welcome screen untuk Worm-AI mode
 function updateWelcomeScreenForWormMode(isWormMode) {
     const welcomeScreen = document.getElementById('welcomeScreen');
+    const userInput = document.getElementById('userInput');
+    
+    if (userInput) {
+        userInput.placeholder = isWormMode ? 'Balasan Untuk Worm ZainAI' : 'Balasan Untuk ZainAI';
+    }
+    
     if (!welcomeScreen) return;
     
     const heroTitle = welcomeScreen.querySelector('.hero-title');
@@ -6885,6 +7213,17 @@ function updateCharCounter() {
 function autoResize(element) {
     element.style.height = 'auto';
     element.style.height = Math.min(element.scrollHeight, 150) + 'px';
+    const container = element.closest('.input-container');
+    const sendBtn = document.getElementById('sendBtn');
+    if (container) {
+        if (element.scrollHeight > 46) {
+            container.classList.add('multiline');
+            if (sendBtn) sendBtn.style.alignSelf = 'flex-end';
+        } else {
+            container.classList.remove('multiline');
+            if (sendBtn) sendBtn.style.alignSelf = 'center';
+        }
+    }
     updateCharCounter();
     updateSendButton();
 }
@@ -6913,6 +7252,37 @@ function handleKeyPress(event) {
 document.getElementById('userInput').addEventListener('input', () => {
     updateSendButton();
     autoResize(document.getElementById('userInput'));
+    // Kalau input dikosongkan dan tidak fokus, gear balik ke dalam
+    if (userInput.value.trim() === '' && document.activeElement !== userInput) {
+        gearBtn.classList.remove('visible');
+        gearInside.classList.remove('hidden');
+    }
+});
+
+// Gear button show/hide on focus
+const userInput = document.getElementById('userInput');
+const gearBtn = document.getElementById('gearBtn');
+const gearInside = document.getElementById('gearInside');
+const inputContainer = document.querySelector('#ai .input-container');
+userInput.addEventListener('focus', () => {
+    gearBtn.classList.add('visible');
+    gearBtn.classList.add('focused');
+    gearInside.classList.add('hidden');
+    inputContainer.classList.add('focused');
+});
+userInput.addEventListener('blur', () => {
+    setTimeout(() => {
+        // Kalau masih ada teks, gear tetap di luar
+        if (userInput.value.trim() !== '') {
+            gearBtn.classList.remove('focused');
+            inputContainer.classList.remove('focused');
+        } else {
+            gearBtn.classList.remove('visible');
+            gearBtn.classList.remove('focused');
+            gearInside.classList.remove('hidden');
+            inputContainer.classList.remove('focused');
+        }
+    }, 150);
 });
 
 // Send prompt from feature cards
@@ -6950,6 +7320,17 @@ async function sendMessage() {
     // Clear input
     input.value = '';
     input.style.height = 'auto';
+    // Reset multiline state
+    const inputContainer = document.querySelector('#ai .input-container');
+    if (inputContainer) {
+        inputContainer.classList.remove('multiline');
+    }
+    const sendBtn = document.getElementById('sendBtn');
+    if (sendBtn) sendBtn.style.alignSelf = 'center';
+    // Reset gear
+    gearBtn.classList.remove('visible');
+    gearBtn.classList.remove('focused');
+    gearInside.classList.remove('hidden');
     updateCharCounter();
     updateSendButton();
 
@@ -7109,7 +7490,25 @@ async function sendMessage() {
 
     try {
         // Buat system prompt berdasarkan responseLength dan responseStyle
-        let systemPrompt = 'Kamu adalah ZainAI, asisten AI yang sangat pintar, membantu, dan profesional. Kamu dibuat oleh Zain Suryo Negoro. ';
+        // Build song list for AI
+        const songListForAI = playlist.map((s, i) => `[${i}] "${s.title}" - ${s.artist}`).join('\n');
+
+        const lokasiInfo = userLocation ? 'Lokasi user saat ini (akurat dari GPS): ' + userLocation + '. Gunakan info ini kalau user tanya soal lokasi, cuaca, atau hal yang butuh tahu posisi mereka. ' : 'Lokasi user tidak diketahui karena izin GPS ditolak. Kalau user tanya lokasi, minta mereka izinkan akses lokasi di browser. ';
+        const currentSongInfo = (!audio.paused && playlist[currentRealIndex]) 
+            ? 'Lagu yang sedang diputar sekarang: "' + playlist[currentRealIndex].title + '" oleh ' + playlist[currentRealIndex].artist + '. '
+            : (playlist[currentRealIndex] && playlist[currentRealIndex].title !== 'Music not found') 
+                ? 'Lagu terakhir dimuat (sedang dijeda): "' + playlist[currentRealIndex].title + '" oleh ' + playlist[currentRealIndex].artist + '. '
+                : 'Tidak ada lagu yang sedang diputar. ';
+        let systemPrompt = 'Kamu adalah ZainAI, asisten AI yang sangat pintar, membantu, dan profesional. Kamu dibuat oleh Zain Suryo Negoro. ' + lokasiInfo + currentSongInfo +
+        'Kamu juga bisa memutar musik! Berikut daftar lagu yang tersedia:\n' + songListForAI + '\n\n' +
+        'Kamu punya fitur musik. ATURAN KETAT soal musik:\n' +
+        '1. HANYA gunakan [[PLAY_SONG:INDEX]] kalau user JELAS-JELAS minta putar lagu, contoh: "putar lagu X", "play X", "nyalain X", "mau denger X". JANGAN putar lagu kalau user cuma ngobrol biasa, cerita, atau kebetulan nyebut kata yang mirip judul lagu.\n' +
+        '2. Kalau user menyebut artis dan JELAS tanya lagunya (contoh: "lagu tenxi apa aja"), tampilkan daftar bernomor (1. 2. 3. dst) satu per baris, lalu di akhir tambahkan kalimat: "Kamu ingin memutar musik yang mana? Sebutkan angkanya saja." TANPA langsung putar.\n' +
+        '3. Kalau user minta pause/stop/hentikan/lanjutkan lagu, HANYA balas [[PAUSE_SONG]] tanpa teks lain.\n' +
+        '4. Kalau user minta lihat/tampilkan player/musik yang diputar (contoh: "liat", "coba liat", "tampilin", "show"), HANYA balas [[SHOW_PLAYER]] tanpa teks lain.\n' +
+        '5. Kalau user minta buatkan/generate/buat gambar (contoh: "buatkan gambar kucing", "generate foto sunset", "buat ilustrasi naga"), balas dengan tag [[GENERATE_IMAGE:PROMPT_INGGRIS]] dimana PROMPT_INGGRIS adalah deskripsi gambar dalam bahasa Inggris yang detail. Contoh: [[GENERATE_IMAGE:cute cat sitting on a table, anime style, colorful]]. Boleh tambahkan teks penjelasan singkat sebelum tag.\n' +
+        '4. Kalau konteksnya BUKAN tentang musik (misal tanya arti kata, cerita sehari-hari, curhat, dll), jawab normal seperti biasa TANPA menyinggung musik sama sekali.\n' +
+        'Format tag: [[PLAY_SONG:INDEX]] dimana INDEX = nomor index lagu dari daftar. ';
         
         // Atur panjang jawaban
         if (responseLength === 'short') {
@@ -7182,10 +7581,70 @@ async function sendMessage() {
         }
 
         const data = await response.json();
-        const aiMessage = data.choices[0].message.content;
+        let aiMessage = data.choices[0].message.content;
 
-        // Add AI response
-        addMessage(aiMessage, 'ai');
+        // Cek apakah AI ingin memutar lagu
+        const playSongMatch = aiMessage.match(/\[\[PLAY_SONG:(\d+)\]\]/);
+        const showPlayerMatch = aiMessage.match(/\[\[SHOW_PLAYER\]\]/);
+        const generateImageMatch = aiMessage.match(/\[\[GENERATE_IMAGE:(.*?)\]\]/);
+        const pauseSongMatch = aiMessage.match(/\[\[PAUSE_SONG\]\]/);
+
+        if (generateImageMatch) {
+            const prompt = generateImageMatch[1];
+            const cleanMsg = aiMessage.replace(/\[\[GENERATE_IMAGE:.*?\]\]/, '').trim();
+            if (cleanMsg) addMessage(cleanMsg, 'ai');
+            showGeneratedImage(prompt);
+            isGenerating = false;
+            updateSendButton();
+            focusInput();
+        } else if (showPlayerMatch) {
+            // Tampilkan mini player tanpa pesan
+            if (playlist[currentRealIndex] && playlist[currentRealIndex].title !== 'Music not found') {
+                showMiniPlayer(currentRealIndex);
+            }
+            isGenerating = false;
+            updateSendButton();
+            focusInput();
+        } else if (pauseSongMatch) {
+            // Pause/resume lagu, jangan tampilkan pesan
+            if (!audio.paused) {
+                pauseAudio();
+                showNotification('⏸️ Lagu dijeda', 'info');
+            } else {
+                playAudio();
+                showNotification('▶️ Lagu dilanjutkan', 'success');
+            }
+            // Reset state biar tombol kirim bisa dipencet lagi
+            isGenerating = false;
+            updateSendButton();
+            focusInput();
+        } else {
+            if (playSongMatch) {
+                const songIndex = parseInt(playSongMatch[1]);
+                aiMessage = aiMessage.replace(/\[\[PLAY_SONG:\d+\]\]/, '').trim();
+                setTimeout(() => {
+                    if (songIndex >= 0 && songIndex < playlist.length) {
+                        loadSongByIndex(songIndex);
+                        isLoop = true;
+                        audio.loop = true;
+                        toggleLoopBtn.textContent = 'Mode: Music Akan Diulang Otomatis';
+                        setTimeout(() => {
+                            playAudio();
+                            showMiniPlayer(songIndex);
+                        }, 300);
+                        showNotification('🎵 Memutar: ' + playlist[songIndex].title, 'success');
+                    }
+                }, 500);
+            }
+
+            // Add AI response - sembunyikan copy/speaker kalau teks kosong
+            if (aiMessage && aiMessage.trim()) {
+                addMessage(aiMessage, 'ai');
+            }
+            isGenerating = false;
+            updateSendButton();
+            focusInput();
+        }
 
         // Update chat history
         chatHistory.push(
@@ -7213,7 +7672,7 @@ async function sendMessage() {
 }
 
 // Add message to chat
-function addMessage(text, type) {
+function addMessage(text, type, hideActions = false) {
     const container = document.getElementById('chatContainer');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}`;
@@ -7238,9 +7697,10 @@ function addMessage(text, type) {
         
         contentDiv.appendChild(bubble);
         
-        // Action buttons row (copy + speaker)
+        // Action buttons row (copy + speaker) - sembunyikan kalau teks kosong
         const actionsDiv = document.createElement('div');
         actionsDiv.className = 'msg-actions';
+        if (!text || text.trim() === '' || hideActions) { actionsDiv.style.display = 'none'; }
 
         // Copy button
         const copyBtn = document.createElement('button');
@@ -7267,7 +7727,28 @@ function addMessage(text, type) {
             } else {
                 const utter = new SpeechSynthesisUtterance(text.replace(/[*`#]/g, ''));
                 utter.lang = 'id-ID';
-                utter.rate = 1;
+                utter.rate = 1.20;
+                utter.pitch = 1;
+                utter.volume = 1;
+                const setBestVoice2 = () => {
+                    const voices = window.speechSynthesis.getVoices();
+                    const preferred = [
+                        v => v.lang === 'id-ID' && v.localService,
+                        v => v.lang === 'id-ID',
+                        v => v.lang.startsWith('id'),
+                        v => v.lang === 'en-US' && v.localService,
+                        v => v.lang === 'en-US',
+                    ];
+                    for (const fn of preferred) {
+                        const found = voices.find(fn);
+                        if (found) { utter.voice = found; break; }
+                    }
+                };
+                if (window.speechSynthesis.getVoices().length > 0) {
+                    setBestVoice2();
+                } else {
+                    window.speechSynthesis.onvoiceschanged = setBestVoice2;
+                }
                 utter.onend = () => {
                     isSpeaking = false;
                     speakBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
@@ -7306,7 +7787,7 @@ function addMessage(text, type) {
     }
     
     // Scroll to bottom
-    container.scrollTop = container.scrollHeight;
+    scrollChatToBottom();
 }
 
 // Copy to clipboard function
@@ -7338,12 +7819,12 @@ function typeWriter(element, text, index) {
         const currentText = plainText.substring(0, index + 1);
         const formattedCurrent = formatMessage(currentText);
         element.innerHTML = formattedCurrent;
-        container.scrollTop = container.scrollHeight;
+        scrollChatToBottom();
         setTimeout(() => typeWriter(element, text, index + 1), speed);
     } else {
         // Selesai, tampilkan format lengkap
         element.innerHTML = formattedText;
-        container.scrollTop = container.scrollHeight;
+        scrollChatToBottom();
         // Baru boleh kirim lagi setelah typing selesai
         isGenerating = false;
         updateSendButton();
@@ -7460,7 +7941,7 @@ function addTypingIndicator() {
     messageDiv.appendChild(contentDiv);
     container.appendChild(messageDiv);
     
-    container.scrollTop = container.scrollHeight;
+    scrollChatToBottom();
     
     return id;
 }
@@ -7496,6 +7977,8 @@ function clearChat() {
 // Settings modal functions
 function openSettings() {
     document.getElementById('settingsModal').classList.add('active');
+    const savedHF = localStorage.getItem('hf_token');
+    if (savedHF) document.getElementById('hfTokenInput').value = savedHF;
 }
 
 function closeSettings() {
@@ -7503,6 +7986,11 @@ function closeSettings() {
 }
 
 function saveSettings() {
+    // Simpan HF token
+    const hfInput = document.getElementById('hfTokenInput');
+    if (hfInput && hfInput.value.trim()) {
+        localStorage.setItem('hf_token', hfInput.value.trim());
+    }
     const keyInput = document.getElementById('apiKeyInput').value.trim();
     
     if (!keyInput) {
@@ -7613,7 +8101,172 @@ style.textContent = `
         align-items: center;
         gap: 10px;
     }
-    code {
+    /* ===== AI IMAGE GENERATOR ===== */
+    .ai-image-card {
+        background: linear-gradient(135deg, rgba(0,20,40,0.97), rgba(0,8,22,0.99));
+        border: 1px solid rgba(0,217,255,0.25);
+        border-radius: 18px;
+        overflow: hidden;
+        max-width: 300px;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+    .ai-image-loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        gap: 12px;
+        color: rgba(0,217,255,0.8);
+        font-size: 13px;
+    }
+    .ai-image-spinner {
+        width: 36px; height: 36px;
+        border: 3px solid rgba(0,217,255,0.2);
+        border-top-color: #00d9ff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+    .ai-image {
+        width: 100%;
+        display: block;
+        border-radius: 0;
+    }
+    .ai-image-prompt {
+        padding: 8px 12px;
+        font-size: 11px;
+        color: rgba(255,255,255,0.4);
+        border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+/* ===== MINI PLAYER DI CHAT ===== */
+    .chat-mini-player {
+        background: linear-gradient(135deg, rgba(0,20,40,0.97), rgba(0,8,22,0.99));
+        border: 1px solid rgba(0,217,255,0.25);
+        border-radius: 18px;
+        padding: 14px 16px 12px;
+        margin: 4px 0;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,217,255,0.08);
+        max-width: 320px;
+        width: 100%;
+        overflow: visible;
+        position: relative;
+        box-sizing: border-box;
+    }
+    .chat-mini-player::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+        opacity: 0.6;
+    }
+    .cmp-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    .cmp-cover {
+        width: 52px; height: 52px;
+        border-radius: 12px;
+        background-size: cover;
+        background-position: center;
+        border: none;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+        flex-shrink: 0;
+        animation: spin 12s linear infinite;
+        animation-play-state: paused;
+        border-radius: 50%;
+    }
+    .cmp-cover.playing { animation-play-state: running; }
+    .cmp-info { flex: 1; min-width: 0; }
+    .cmp-title-wrap {
+        overflow: hidden;
+        white-space: nowrap;
+        margin-bottom: 3px;
+        width: 100%;
+        position: relative;
+    }
+    .cmp-title {
+        font-size: 13px; font-weight: 700;
+        color: #fff;
+        white-space: nowrap;
+        display: inline-block;
+        letter-spacing: 0.2px;
+    }
+    .cmp-title.scrolling {
+        will-change: transform;
+    }
+    .cmp-artist {
+        font-size: 11px;
+        color: rgba(0,217,255,0.75);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        font-weight: 500;
+    }
+    .cmp-playbtn {
+        width: 40px; height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: #00d9ff;
+        color: #000;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.2s;
+        box-shadow: 0 0 16px rgba(0,217,255,0.4);
+    }
+    .cmp-playbtn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 24px rgba(0,217,255,0.6);
+    }
+    .cmp-playbtn:active { transform: scale(0.95); }
+    .cmp-seekbar {
+        width: 100%;
+        height: 6px;
+        background: rgba(255,255,255,0.12);
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 5px;
+        margin-top: 10px;
+        position: relative;
+        box-sizing: border-box;
+    }
+    .cmp-progress {
+        height: 100%;
+        background: linear-gradient(90deg, #00d9ff, #00c8ff);
+        border-radius: 10px;
+        width: 0%;
+        transition: width 0.1s linear;
+        pointer-events: none;
+        position: relative;
+        box-shadow: 0 0 8px rgba(0,217,255,0.7);
+    }
+    .cmp-progress::after {
+        content: '';
+        position: absolute;
+        right: -5px; top: 50%;
+        transform: translateY(-50%);
+        width: 12px; height: 12px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(0,217,255,1);
+    }
+    .cmp-times {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: rgba(255,255,255,0.5);
+        font-variant-numeric: tabular-nums;
+        padding: 0 2px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 4px;
+    }
+
+code {
         background: rgba(0, 217, 255, 0.1);
         padding: 2px 6px;
         border-radius: 4px;
@@ -7688,6 +8341,181 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ===== IMAGE GENERATOR =====
+async function showGeneratedImage(prompt) {
+    const container = document.getElementById('chatContainer');
+    const wrap = document.createElement('div');
+    wrap.className = 'message ai';
+    const loaderId = 'imgLoad_' + Date.now();
+
+    wrap.innerHTML = `
+        <div class="message-content">
+            <div class="ai-image-card">
+                <div class="ai-image-loading" id="${loaderId}">
+                    <div class="ai-image-spinner"></div>
+                    <span>Membuat gambar...</span>
+                </div>
+                <img class="ai-image" id="img_${loaderId}" style="display:none;" alt="${prompt}">
+                <div class="ai-image-prompt">${prompt}</div>
+            </div>
+        </div>`;
+
+    container.appendChild(wrap);
+    scrollChatToBottom();
+
+    const loaderEl = document.getElementById(loaderId);
+    const imgEl = document.getElementById('img_' + loaderId);
+    const HF_TOKEN = localStorage.getItem('hf_token') || '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';
+
+    try {
+        // Pakai Cloudflare Worker sebagai proxy ke HuggingFace
+        const WORKER_URL = 'https://curly-cherry-34ad.zainsuryo10-098.workers.dev';
+
+        loaderEl.querySelector('span').textContent = 'Membuat gambar... (bisa 20-30 detik)';
+
+        const response = await fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({ error: 'Unknown error' }));
+            throw new Error(err.error || 'Request gagal: ' + response.status);
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        loaderEl.style.display = 'none';
+        imgEl.src = url;
+        imgEl.style.display = 'block';
+        scrollChatToBottom();
+    } catch (err) {
+        console.error(err);
+        loaderEl.innerHTML = `<span style="color:rgba(255,100,100,0.8)">Gagal: ${err.message}</span>`;
+    }
+}
+
+// ===== MINI PLAYER DI CHAT =====
+let miniPlayerInterval = null;
+let activeMiniPlayer = null;
+
+function showMiniPlayer(songIndex) {
+    const s = playlist[songIndex];
+    if (!s) return;
+
+    // Hapus mini player lama kalau ada
+    if (activeMiniPlayer) {
+        activeMiniPlayer.remove();
+        activeMiniPlayer = null;
+    }
+    if (miniPlayerInterval) {
+        clearInterval(miniPlayerInterval);
+        miniPlayerInterval = null;
+    }
+
+    // Buat elemen mini player
+    const wrap = document.createElement('div');
+    wrap.className = 'message ai';
+    wrap.innerHTML = `
+        <div class="message-content">
+            <div class="message-bubble chat-mini-player" id="activeMiniPlayerBox">
+                <div class="cmp-top">
+                    <div class="cmp-cover" id="cmpCover" style="background-image:url('${s.image}')"></div>
+                    <div class="cmp-info">
+                        <div class="cmp-title-wrap"><div class="cmp-title" id="cmpTitle">${s.title}</div></div>
+                        <div class="cmp-artist">${s.artist}</div>
+                    </div>
+                    <button class="cmp-playbtn" id="cmpPlayBtn" onclick="toggleMiniPlayer()"><i class="fa-solid fa-pause"></i></button>
+                </div>
+                <div class="cmp-seekbar" id="cmpSeekbar">
+                    <div class="cmp-progress" id="cmpProgress"></div>
+                </div>
+                <div class="cmp-times">
+                    <span id="cmpCurrent">0:00</span>
+                    <span id="cmpDuration">0:00</span>
+                </div>
+            </div>
+        </div>`;
+
+    const container = document.getElementById('chatContainer');
+    container.appendChild(wrap);
+    activeMiniPlayer = wrap;
+    scrollChatToBottom();
+
+    // Marquee JS manual - geser pixel per pixel, reset tanpa lompat
+    setTimeout(() => {
+        const titleEl = document.getElementById('cmpTitle');
+        const wrap = titleEl ? titleEl.parentElement : null;
+        if (!titleEl || !wrap) return;
+
+        if (titleEl.scrollWidth > wrap.clientWidth) {
+            titleEl.classList.add('scrolling');
+            const totalDist = titleEl.scrollWidth + 30;
+            let pos = 0;
+            const speed = 0.8; // px per frame
+            let pausing = true;
+            let pauseFrames = 80; // jeda di awal ~1.3 detik
+
+            function step() {
+                if (!document.getElementById('cmpTitle')) return; // mini player dihapus
+                if (pausing) {
+                    pauseFrames--;
+                    if (pauseFrames <= 0) { pausing = false; }
+                } else {
+                    pos += speed;
+                    if (pos >= totalDist) {
+                        // Hilang, reset ke awal tanpa transisi
+                        pos = 0;
+                        pausing = true;
+                        pauseFrames = 60;
+                    }
+                    titleEl.style.transform = 'translateX(-' + pos + 'px)';
+                }
+                requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+    }, 500);
+
+    // Seekbar klik
+    document.getElementById('cmpSeekbar').addEventListener('click', (e) => {
+        if (!audio.duration) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+    });
+
+    // Update progress setiap detik
+    miniPlayerInterval = setInterval(() => {
+        const prog = document.getElementById('cmpProgress');
+        const curr = document.getElementById('cmpCurrent');
+        const dur = document.getElementById('cmpDuration');
+        const cover = document.getElementById('cmpCover');
+        const btn = document.getElementById('cmpPlayBtn');
+        if (!prog) { clearInterval(miniPlayerInterval); return; }
+        if (audio.duration) {
+            prog.style.width = (audio.currentTime / audio.duration * 100) + '%';
+            curr.textContent = formatTime(audio.currentTime);
+            dur.textContent = formatTime(audio.duration);
+        }
+        if (audio.paused) {
+            btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+            cover.classList.remove('playing');
+        } else {
+            btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            cover.classList.add('playing');
+        }
+    }, 500);
+}
+
+function toggleMiniPlayer() {
+    if (audio.paused) {
+        playAudio();
+    } else {
+        pauseAudio();
+    }
+}
 
 // Close modals on escape key
 document.addEventListener('keydown', (e) => {
