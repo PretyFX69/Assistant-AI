@@ -9142,37 +9142,60 @@ async function vidSnapDownload(cardId, url, format) {
     const resultEl = document.getElementById(cardId + '_result');
 
     statusEl.style.display = 'block';
-    statusEl.innerHTML = '⏳ Memproses... (mungkin 10-30 detik)';
+    statusEl.innerHTML = 'Memulai download...';
     resultEl.style.display = 'none';
 
     try {
-        const res = await fetch(PROXY_URL + '/api/get', {
+        // Start job
+        const startRes = await fetch(PROXY_URL + '/api/start', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url, format })
         });
+        const { job_id } = await startRes.json();
 
-        if (res.ok && res.headers.get('content-disposition')) {
-            // File langsung dari backend
-            const blob = await res.blob();
-            const fname = res.headers.get('content-disposition')
-                ?.match(/filename="?([^"]+)"?/)?.[1] || 'video.mp4';
-            const dlUrl = URL.createObjectURL(blob);
-            statusEl.style.display = 'none';
-            resultEl.style.display = 'block';
-            resultEl.innerHTML = `
-                <a href="${dlUrl}" download="${fname}"
-                    style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
-                    Download
-                </a>
-                <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">${fname}</div>
-            `;
-        } else {
-            const data = await res.json();
-            statusEl.innerHTML = '❌ ' + (data.error || 'Gagal. Coba link lain.');
+        // Progress bar
+        resultEl.style.display = 'block';
+        resultEl.innerHTML = `
+            <div style="background:rgba(0,0,0,0.3);border-radius:8px;overflow:hidden;height:8px;margin-bottom:6px;">
+                <div id="${cardId}_bar" style="height:100%;background:linear-gradient(90deg,#00f0c8,#00d9ff);width:0%;transition:width .5s;border-radius:8px;"></div>
+            </div>
+            <div id="${cardId}_pct" style="font-size:12px;color:rgba(255,255,255,0.5);text-align:center;">0%</div>
+        `;
+
+        // Poll status
+        let done = false;
+        for (let i = 0; i < 120; i++) {
+            await new Promise(r => setTimeout(r, 2000));
+            const statusRes = await fetch(PROXY_URL + '/api/status/' + job_id);
+            const job = await statusRes.json();
+
+            const bar = document.getElementById(cardId + '_bar');
+            const pct = document.getElementById(cardId + '_pct');
+            if (bar) bar.style.width = job.progress + '%';
+            if (pct) pct.textContent = job.progress + '%';
+
+            if (job.status === 'done') {
+                statusEl.style.display = 'none';
+                resultEl.innerHTML = `
+                    <a href="${PROXY_URL}/api/file/${job_id}" target="_blank" download="${job.filename}"
+                        style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
+                        Download
+                    </a>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">${job.filename}</div>
+                `;
+                done = true;
+                break;
+            } else if (job.status === 'error') {
+                statusEl.innerHTML = 'Error: ' + job.error;
+                resultEl.style.display = 'none';
+                done = true;
+                break;
+            }
         }
+        if (!done) statusEl.innerHTML = 'Timeout. Coba video yang lebih pendek.';
     } catch(e) {
-        statusEl.innerHTML = '❌ Gagal konek ke proxy. Coba lagi.';
+        statusEl.innerHTML = 'Gagal konek ke proxy. Coba lagi.';
     }
     scrollChatToBottom();
 }
