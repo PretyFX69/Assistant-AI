@@ -9094,7 +9094,6 @@ function showDownloadCard(url, platform) {
     const color = isYT ? '#ff3c3c' : '#00f0c8';
     const colorBg = isYT ? 'rgba(255,60,60,0.12)' : 'rgba(0,240,200,0.12)';
     const colorBorder = isYT ? 'rgba(255,60,60,0.35)' : 'rgba(0,240,200,0.35)';
-    const icon = isYT ? '▶️' : '🎵';
     const label = isYT ? 'YouTube' : 'TikTok';
     const cardId = 'dl_' + Math.random().toString(36).substr(2,6);
 
@@ -9114,7 +9113,7 @@ function showDownloadCard(url, platform) {
 
     card.innerHTML = `
         <div style="display:inline-flex;align-items:center;gap:6px;background:${colorBg};border:1px solid ${colorBorder};color:${color};font-size:12px;padding:4px 12px;border-radius:99px;margin-bottom:14px;">
-            ${icon} VidSnap · ${label} Downloader
+            VidSnap · ${label} Downloader
         </div>
         <div style="font-size:13px;color:rgba(255,255,255,0.5);word-break:break-all;margin-bottom:14px;background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:8px;">${url}</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
@@ -9122,7 +9121,7 @@ function showDownloadCard(url, platform) {
                 <button onclick="vidSnapDownload('${cardId}','${url}','${f}')"
                     style="padding:9px 16px;border-radius:8px;border:1px solid ${colorBorder};background:${colorBg};color:${color};font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;"
                     onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
-                    ${f === 'mp4' ? '🎬 MP4' : f === 'mp3' ? '🎵 MP3' : f === '720' ? '📱 720p' : '💻 1080p'}
+                    ${f === 'mp4' ? 'MP4' : f === 'mp3' ? 'MP3' : f === '720' ? '720p' : '1080p'}
                 </button>`).join('')}
         </div>
         <div id="${cardId}_status" style="font-size:13px;color:rgba(255,255,255,0.5);display:none;"></div>
@@ -9143,7 +9142,7 @@ async function vidSnapDownload(cardId, url, format) {
     const resultEl = document.getElementById(cardId + '_result');
 
     statusEl.style.display = 'block';
-    statusEl.innerHTML = '⏳ Memproses...';
+    statusEl.innerHTML = '⏳ Memproses... (mungkin 10-30 detik)';
     resultEl.style.display = 'none';
 
     try {
@@ -9153,30 +9152,23 @@ async function vidSnapDownload(cardId, url, format) {
             body: JSON.stringify({ url, format })
         });
 
-        const data = await res.json();
-
-        if (data.status === 'ok' && data.url) {
+        if (res.ok && res.headers.get('content-disposition')) {
+            // File langsung dari backend
+            const blob = await res.blob();
+            const fname = res.headers.get('content-disposition')
+                ?.match(/filename="?([^"]+)"?/)?.[1] || 'video.mp4';
+            const dlUrl = URL.createObjectURL(blob);
             statusEl.style.display = 'none';
             resultEl.style.display = 'block';
             resultEl.innerHTML = `
-                <a href="${data.url}" target="_blank" download="${data.filename || 'video.mp4'}"
+                <a href="${dlUrl}" download="${fname}"
                     style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
-                    💾 Klik untuk Download
+                    Download
                 </a>
-                <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">Tap → tahan → Save video</div>
-            `;
-        } else if (data.status === 'picker') {
-            statusEl.style.display = 'none';
-            resultEl.style.display = 'block';
-            resultEl.innerHTML = `
-                <div style="font-size:12px;color:#fbbf24;margin-bottom:8px;">📋 Pilih kualitas:</div>
-                ${data.picker.map(p => `
-                    <a href="${p.url}" target="_blank" download
-                        style="display:block;width:100%;padding:10px 14px;margin-bottom:6px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:8px;color:#fbbf24;font-size:13px;text-decoration:none;box-sizing:border-box;">
-                        📥 ${p.quality || 'Download'}
-                    </a>`).join('')}
+                <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">${fname}</div>
             `;
         } else {
+            const data = await res.json();
             statusEl.innerHTML = '❌ ' + (data.error || 'Gagal. Coba link lain.');
         }
     } catch(e) {
