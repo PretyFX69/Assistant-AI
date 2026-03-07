@@ -9135,81 +9135,54 @@ function showDownloadCard(url, platform) {
     scrollChatToBottom();
 }
 
+// Ganti dengan URL Render kamu setelah deploy!
+const PROXY_URL = 'https://pretvfxc-vidsnap-proxy.hf.space';
+
 async function vidSnapDownload(cardId, url, format) {
     const statusEl = document.getElementById(cardId + '_status');
     const resultEl = document.getElementById(cardId + '_result');
 
     statusEl.style.display = 'block';
-    statusEl.textContent = '⏳ Memproses...';
+    statusEl.innerHTML = '⏳ Memproses...';
     resultEl.style.display = 'none';
 
-    // Mapping format ke cobalt
-    const qualityMap = { '1080': '1080', '720': '720', 'mp4': 'max', 'mp3': 'max' };
-    const isAudio = format === 'mp3';
-
     try {
-        // Coba beberapa instance cobalt publik
-        const instances = [
-            'https://cobalt.api.timelessnesses.me/',
-            'https://co.eepy.moe/',
-            'https://cobalt.rknight.me/',
-        ];
-
-        let res, lastErr;
-        for (const instance of instances) {
-            try {
-                res = await fetch(instance, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        url: url,
-                        videoQuality: qualityMap[format] || 'max',
-                        audioFormat: isAudio ? 'mp3' : 'best',
-                        downloadMode: isAudio ? 'audio' : 'auto',
-                        filenameStyle: 'pretty'
-                    })
-                });
-                if (res.ok) break;
-            } catch(e) { lastErr = e; }
-        }
-        if (!res || !res.ok) throw lastErr || new Error('Semua server gagal');
+        const res = await fetch(PROXY_URL + '/api/get', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url, format })
+        });
 
         const data = await res.json();
 
-        if (data.status === 'stream' || data.status === 'redirect' || data.url) {
-            const dlUrl = data.url || data.stream;
+        if (data.status === 'ok' && data.url) {
             statusEl.style.display = 'none';
             resultEl.style.display = 'block';
             resultEl.innerHTML = `
-                <a href="${dlUrl}" target="_blank" download
+                <a href="${data.url}" target="_blank" download="${data.filename || 'video.mp4'}"
                     style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
                     💾 Klik untuk Download
                 </a>
-                <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:6px;text-align:center;">Jika tidak otomatis, klik kanan → Save As</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">Tap → tahan → Save video</div>
             `;
-            scrollChatToBottom();
         } else if (data.status === 'picker') {
-            // Ada pilihan kualitas dari cobalt
             statusEl.style.display = 'none';
             resultEl.style.display = 'block';
             resultEl.innerHTML = `
-                <div style="font-size:13px;color:#fbbf24;margin-bottom:8px;">📋 Pilih kualitas:</div>
-                ${data.picker.map((p,i) => `
+                <div style="font-size:12px;color:#fbbf24;margin-bottom:8px;">📋 Pilih kualitas:</div>
+                ${data.picker.map(p => `
                     <a href="${p.url}" target="_blank" download
                         style="display:block;width:100%;padding:10px 14px;margin-bottom:6px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:8px;color:#fbbf24;font-size:13px;text-decoration:none;box-sizing:border-box;">
-                        ${p.quality || 'Option ' + (i+1)}
+                        📥 ${p.quality || 'Download'}
                     </a>`).join('')}
             `;
-            scrollChatToBottom();
         } else {
-            statusEl.textContent = '❌ ' + (data.error?.code || data.text || 'Gagal memproses. Coba link lain.');
+            statusEl.innerHTML = '❌ ' + (data.error || 'Gagal. Coba link lain.');
         }
     } catch(e) {
-        statusEl.textContent = '❌ Gagal konek ke server download. Coba lagi.';
+        statusEl.innerHTML = '❌ Gagal konek ke proxy. Coba lagi.';
     }
+    scrollChatToBottom();
 }
 // ===== END VIDSNAP =====
 
