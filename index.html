@@ -1558,6 +1558,33 @@ pointer-events:none; /* TANPA CONTROL */
     }
     @keyframes rainbow { 0%{background-position:0%}50%{background-position:100%}100%{background-position:0%} }
 
+    /* Animasi masuk musik */
+    @keyframes musicSlideDown {
+        from { opacity:0; transform: translateY(-30px); }
+        to   { opacity:1; transform: translateY(0); }
+    }
+    @keyframes musicSlideUp {
+        from { opacity:0; transform: translateY(40px); }
+        to   { opacity:1; transform: translateY(0); }
+    }
+    @keyframes musicZoomIn {
+        from { opacity:0; transform: scale(0.75); }
+        to   { opacity:1; transform: scale(1); }
+    }
+    @keyframes musicFadeLeft {
+        from { opacity:0; transform: translateX(-30px); }
+        to   { opacity:1; transform: translateX(0); }
+    }
+
+    .music-anim-brand   { animation: musicSlideDown 0.45s cubic-bezier(.22,1,.36,1) both; }
+    .music-anim-cd      { animation: musicZoomIn    0.5s  cubic-bezier(.22,1,.36,1) 0.1s both; }
+    .music-anim-visual  { animation: musicSlideUp   0.4s  cubic-bezier(.22,1,.36,1) 0.18s both; }
+    .music-anim-info    { animation: musicSlideUp   0.4s  cubic-bezier(.22,1,.36,1) 0.24s both; }
+    .music-anim-bar     { animation: musicSlideUp   0.4s  cubic-bezier(.22,1,.36,1) 0.3s  both; }
+    .music-anim-ctrl    { animation: musicSlideUp   0.4s  cubic-bezier(.22,1,.36,1) 0.36s both; }
+    .music-anim-search  { animation: musicSlideUp   0.4s  cubic-bezier(.22,1,.36,1) 0.42s both; }
+    .music-anim-list    { animation: musicFadeLeft  0.45s cubic-bezier(.22,1,.36,1) 0.48s both; }
+
     .cd-box { 
       text-align:center; 
       margin: 10px 0 20px;
@@ -2313,6 +2340,18 @@ pointer-events:none; /* TANPA CONTROL */
     background: #ff0000;
 }
 
+#ai.angry-theme .help-feat-card { border-color:rgba(255,0,0,0.1); }
+#ai.angry-theme .help-feat-card:hover { background:rgba(255,0,0,0.05);border-color:rgba(255,0,0,0.2); }
+#ai.angry-theme .help-feat-desc code { background:rgba(255,0,0,0.1);color:#ff4444; }
+#ai.angry-theme #helpBtn { color:#ff4444 !important; border-color:rgba(255,0,0,0.3) !important; background:rgba(255,0,0,0.08) !important; }
+#ai.angry-theme #helpModal .modal-title { color:#ffffff !important; }
+#ai.angry-theme #helpModal .modal-title + * i,
+#ai.angry-theme #helpModal .modal-header i.fa-robot { color:#ff3333 !important; }
+#ai #helpModalClose { background:rgba(0,217,255,0.08) !important; border:1px solid rgba(0,217,255,0.25) !important; color:var(--primary-cyan) !important; }
+#ai #helpModalClose:hover { background:rgba(0,217,255,0.18) !important; }
+#ai.angry-theme #helpModalClose { background:rgba(255,0,0,0.12) !important; border:1px solid rgba(255,0,0,0.3) !important; color:#ff4444 !important; }
+#ai.angry-theme #helpModal .modal-close { background:rgba(255,0,0,0.12) !important; border:1px solid rgba(255,0,0,0.3) !important; color:#ff4444 !important; }
+#ai.angry-theme #helpModal .modal-close:hover { background:rgba(255,0,0,0.25) !important; }
 #ai.angry-theme .send-btn {
     background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%);
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
@@ -2396,6 +2435,10 @@ pointer-events:none; /* TANPA CONTROL */
 }
 
 #ai.angry-theme .modal-title {
+    color: #ff0000;
+}
+
+#ai.angry-theme .modal-title i {
     color: #ff0000;
 }
 
@@ -2551,6 +2594,32 @@ pointer-events:none; /* TANPA CONTROL */
 
 #ai.angry-theme .slider-value {
     color: #ff0000;
+}
+
+#ai.angry-theme .sett-pill {
+    border-color: rgba(255,0,0,0.2);
+    background: rgba(255,0,0,0.05);
+    color: #ff6666;
+}
+
+#ai.angry-theme .sett-pill:hover {
+    border-color: rgba(255,0,0,0.4);
+    background: rgba(255,0,0,0.1);
+    color: #ffaaaa;
+}
+
+#ai.angry-theme .sett-pill.active {
+    border-color: #ff0000;
+    background: rgba(255,0,0,0.15);
+    color: #ff0000;
+}
+
+#ai.angry-theme .info-item i {
+    color: #ff0000;
+}
+
+#ai.angry-theme .info-item strong {
+    color: #ff4444;
 }
 
 #ai.angry-theme .info-logo {
@@ -3448,137 +3517,139 @@ pointer-events:none; /* TANPA CONTROL */
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 #ai .modal-content {
-    background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
-    border: 2px solid var(--primary-cyan);
-    border-radius: 24px;
-    max-width: 550px;
+    background: rgba(8, 12, 20, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 217, 255, 0.12);
+    border-radius: 20px;
+    max-width: 480px;
     width: 100%;
-    max-height: 85vh;
+    max-height: 88vh;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 217, 255, 0.4);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,217,255,0.08);
     position: relative;
     z-index: 1001;
     display: flex;
     flex-direction: column;
-    animation: modalSlideIn 0.3s ease;
+    animation: modalSlideIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-30px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 #ai .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 28px;
-    border-bottom: 1px solid var(--border-color);
+    padding: 20px 22px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 #ai .modal-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--primary-cyan);
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
+    letter-spacing: 0.01em;
+}
+
+#ai .modal-title i {
+    color: var(--primary-cyan);
+    font-size: 15px;
 }
 
 #ai .close-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.4);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    transition: all 0.3s ease;
+    font-size: 14px;
+    transition: all 0.2s ease;
 }
 
 #ai .close-btn:hover {
-    background: var(--danger);
-    color: var(--text-primary);
-    border-color: var(--danger);
+    background: rgba(255,68,68,0.12);
+    color: #ff4444;
+    border-color: rgba(255,68,68,0.2);
 }
 
 #ai .modal-body {
-    padding: 28px;
+    padding: 20px 22px;
     overflow-y: auto;
     flex: 1;
 }
 
-#ai .modal-body::-webkit-scrollbar {
-    width: 4px;
-}
-
+#ai .modal-body::-webkit-scrollbar { width: 3px; }
 #ai .modal-body::-webkit-scrollbar-thumb {
-    background: var(--primary-cyan);
+    background: rgba(0,217,255,0.3);
     border-radius: 3px;
 }
 
 #ai .modal-footer {
-    padding: 20px 28px;
-    border-top: 1px solid var(--border-color);
+    padding: 16px 22px;
+    border-top: 1px solid rgba(255,255,255,0.06);
     display: flex;
-    gap: 12px;
+    gap: 10px;
     justify-content: flex-end;
 }
 
 /* Settings */
 #ai .settings-group {
-    margin-bottom: 28px;
+    margin-bottom: 22px;
 }
 
 #ai .settings-label {
-    color: var(--text-primary);
-    font-weight: 600;
-    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
 }
 
 #ai .settings-label i {
     color: var(--primary-cyan);
+    font-size: 11px;
 }
 
-#ai .input-with-icon {
-    position: relative;
-}
+#ai .input-with-icon { position: relative; }
 
 #ai .settings-input, #ai .settings-select {
     width: 100%;
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: 2px solid var(--border-color);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-primary);
-    font-size: 14px;
+    padding: 11px 44px 11px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    color: #fff;
+    font-size: 13px;
     font-family: inherit;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
 }
 
 #ai .settings-input:focus, #ai .settings-select:focus {
     outline: none;
-    border-color: var(--primary-cyan);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0,217,255,0.4);
+    background: rgba(0,217,255,0.04);
 }
 
 #ai .toggle-password {
@@ -3588,258 +3659,285 @@ pointer-events:none; /* TANPA CONTROL */
     transform: translateY(-50%);
     background: transparent;
     border: none;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.25);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     padding: 4px;
+    transition: color 0.2s;
 }
 
-#ai .toggle-password:hover {
-    color: var(--primary-cyan);
-}
+#ai .toggle-password:hover { color: var(--primary-cyan); }
 
 #ai .settings-hint {
     display: block;
-    margin-top: 8px;
-    font-size: 12px;
-    color: var(--text-muted);
+    margin-top: 7px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
 }
 
 #ai .settings-hint a {
     color: var(--primary-cyan);
     text-decoration: none;
+    opacity: 0.8;
 }
 
-#ai .settings-hint a:hover {
-    text-decoration: underline;
-}
+#ai .settings-hint a:hover { opacity: 1; }
 
-/* Response Length Cards */
+/* Response Cards */
 #ai .response-length-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 8px;
 }
 
 #ai .response-card {
-    background: rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
     border-radius: 12px;
-    padding: 16px 12px;
+    padding: 14px 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     text-align: center;
     position: relative;
 }
 
 #ai .response-card:hover {
-    background: rgba(0, 0, 0, 0.4);
-    border-color: rgba(0, 217, 255, 0.3);
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(0,217,255,0.2);
 }
 
 #ai .response-card.active {
-    background: rgba(0, 217, 255, 0.1);
-    border-color: var(--primary-cyan);
-    box-shadow: 0 4px 16px rgba(0, 217, 255, 0.2);
+    background: rgba(0,217,255,0.07);
+    border-color: rgba(0,217,255,0.4);
 }
 
-/* Special styling for angry mode card */
 #ai .response-card[data-style="angry"].active {
-    background: rgba(255, 0, 0, 0.15);
-    border-color: #ff0000;
-    box-shadow: 0 4px 16px rgba(255, 0, 0, 0.3);
+    background: rgba(255,60,60,0.08);
+    border-color: rgba(255,60,60,0.35);
     animation: angryPulse 2s infinite;
 }
 
 @keyframes angryPulse {
-    0%, 100% { box-shadow: 0 4px 16px rgba(255, 0, 0, 0.3); }
-    50% { box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5); }
+    0%, 100% { border-color: rgba(255,60,60,0.35); }
+    50% { border-color: rgba(255,60,60,0.6); }
 }
 
-#ai .response-card[data-style="angry"].active .response-card-title {
-    color: #ff0000;
-}
-
+#ai .response-card[data-style="angry"].active .response-card-title { color: #ff5555; }
 #ai .response-card[data-style="angry"].active .response-card-icon {
-    color: #ff0000;
-    animation: angryShake 0.5s infinite;
+    color: #ff5555;
+    animation: angryShake 0.6s infinite;
 }
 
 @keyframes angryShake {
-    0%, 100% { transform: rotate(0deg) scale(1.1); }
-    25% { transform: rotate(-5deg) scale(1.15); }
-    75% { transform: rotate(5deg) scale(1.15); }
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-4deg); }
+    75% { transform: rotate(4deg); }
 }
 
 #ai .response-card-icon {
-    font-size: 28px;
-    margin-bottom: 8px;
+    font-size: 22px;
+    margin-bottom: 7px;
+    color: rgba(255,255,255,0.4);
+    transition: color 0.2s;
 }
 
 #ai .response-card-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 4px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 3px;
 }
 
 #ai .response-card-desc {
-    font-size: 11px;
-    color: var(--text-muted);
-    line-height: 1.3;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.4;
 }
 
-#ai .response-card.active .response-card-title {
-    color: var(--primary-cyan);
-}
-
-#ai .response-card.active .response-card-icon {
-    transform: scale(1.1);
-}
+#ai .response-card.active .response-card-title { color: var(--primary-cyan); }
+#ai .response-card.active .response-card-icon { color: var(--primary-cyan); }
 
 @media (max-width: 768px) {
-
-    #ai .response-length-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    #ai .response-card {
-        padding: 14px 10px;
-    }
-
+    #ai .response-length-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    #ai .response-card { padding: 12px 8px; }
 }
 
 /* Buttons */
 #ai .btn-primary, #ai .btn-secondary {
-    padding: 12px 24px;
-    border-radius: 12px;
+    padding: 10px 20px;
+    border-radius: 10px;
     border: none;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
+    gap: 7px;
+    transition: all 0.2s ease;
 }
 
 #ai .btn-primary {
-    background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--primary-dark) 100%);
-    color: var(--text-primary);
-    box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
+    background: var(--primary-cyan);
+    color: #000;
+    box-shadow: 0 4px 14px rgba(0,217,255,0.25);
 }
 
 #ai .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 217, 255, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,217,255,0.4);
 }
 
 #ai .btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.45);
 }
 
 #ai .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text-primary);
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.7);
 }
 
 #ai .btn-danger-full {
     width: 100%;
-    padding: 14px 20px;
-    border-radius: 12px;
-    border: 2px solid rgba(255, 68, 68, 0.3);
-    background: rgba(255, 68, 68, 0.1);
-    color: var(--danger);
-    font-size: 14px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,68,68,0.15);
+    background: rgba(255,68,68,0.05);
+    color: rgba(255,100,100,0.7);
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: all 0.3s ease;
+    gap: 8px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.02em;
 }
 
 #ai .btn-danger-full:hover {
-    background: rgba(255, 68, 68, 0.2);
-    border-color: var(--danger);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(255, 68, 68, 0.3);
+    background: rgba(255,68,68,0.1);
+    border-color: rgba(255,68,68,0.3);
+    color: #ff6464;
 }
 
-#ai .btn-danger-full:active {
-    transform: translateY(0);
+#ai .btn-danger-full:active { transform: scale(0.98); }
+/* Sett Pills */
+#ai .sett-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
 }
+
+#ai .sett-pill {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#ai .sett-pill:hover {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+}
+
+#ai .sett-pill.active {
+    background: rgba(0,217,255,0.1);
+    border-color: rgba(0,217,255,0.35);
+    color: var(--primary-cyan);
+}
+
+#ai .sett-pill-danger.active {
+    background: rgba(255,60,60,0.1);
+    border-color: rgba(255,60,60,0.35);
+    color: #ff6060;
+}
+
+#ai .sett-pill i { font-size: 12px; }
+
 
 /* Info Modal */
 #ai .info-section {
     text-align: center;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 24px;
-}
-
-#ai .info-logo {
-    font-size: 60px;
-    color: var(--primary-cyan);
+    padding: 16px 0 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     margin-bottom: 16px;
 }
 
+#ai .info-logo {
+    font-size: 40px;
+    color: var(--primary-cyan);
+    margin-bottom: 10px;
+}
+
 #ai .info-section h3 {
-    font-size: 24px;
+    font-size: 18px;
     color: var(--text-primary);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    font-weight: 700;
 }
 
 #ai .version {
-    color: var(--text-muted);
-    font-size: 14px;
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    letter-spacing: 0.05em;
 }
 
 #ai .info-item {
     display: flex;
-    gap: 16px;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
-#ai .info-item:last-child {
-    border-bottom: none;
-}
+#ai .info-item:last-child { border-bottom: none; }
 
 #ai .info-item i {
-    font-size: 24px;
+    font-size: 16px;
     color: var(--primary-cyan);
-    margin-top: 4px;
+    margin-top: 2px;
+    width: 18px;
+    flex-shrink: 0;
 }
 
 #ai .info-item strong {
-    color: var(--primary-cyan);
+    color: rgba(255,255,255,0.5);
     display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
+    margin-bottom: 2px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
 }
 
 #ai .info-item p {
-    color: var(--text-secondary);
-    font-size: 14px;
-    line-height: 1.5;
+    color: rgba(255,255,255,0.75);
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 #ai .feature-list {
-    margin-top: 8px;
-    padding-left: 20px;
+    margin-top: 4px;
+    padding-left: 14px;
 }
 
 #ai .feature-list li {
-    color: var(--text-secondary);
-    font-size: 14px;
-    margin-bottom: 6px;
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    margin-bottom: 3px;
 }
 
 /* Responsive */
@@ -4318,7 +4416,6 @@ pointer-events:none; /* TANPA CONTROL */
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-
         </header>
 
         <!-- Chat Container -->
@@ -4331,6 +4428,21 @@ pointer-events:none; /* TANPA CONTROL */
                     </div>
                     <h1 class="hero-title">Selamat Datang di ZainAI</h1>
                     <p class="hero-subtitle">Asisten AI Cerdas Bertenaga VPS - Siap Membantu Anda</p>
+                    <button id="helpBtn" onclick="openHelpModal()" style="
+                        margin-top:14px;
+                        padding:9px 20px;
+                        border-radius:30px;
+                        background:rgba(0,217,255,0.08);
+                        border:1px solid rgba(0,217,255,0.3);
+                        color:var(--primary-cyan);
+                        font-size:13px;font-weight:600;
+                        cursor:pointer;letter-spacing:0.04em;
+                        display:inline-flex;align-items:center;gap:8px;
+                        transition:all 0.2s ease;
+                        animation:fadeInUp 0.5s cubic-bezier(.22,1,.36,1) 0.4s both;
+                    ">
+                        <i class="fa-solid fa-circle-question"></i> Lihat Semua Fitur
+                    </button>
                 </div>
 
                 <div class="features-section">
@@ -4377,6 +4489,7 @@ pointer-events:none; /* TANPA CONTROL */
                 <button class="gear-btn" id="gearBtn" onclick="openSettings()" title="Settings">
                     <i class="fa-solid fa-gear"></i>
                 </button>
+
                 <div class="input-container">
                     <button class="attach-btn gear-inside" id="gearInside" onclick="openSettings()" title="Settings">
                         <i class="fa-solid fa-gear"></i>
@@ -4400,95 +4513,166 @@ pointer-events:none; /* TANPA CONTROL */
         </div>
     </div>
 
+    <!-- Help/Fitur Modal -->
+    <div class="modal" id="helpModal" style="z-index:10001;align-items:flex-start;padding-top:70px;">
+        <div class="modal-content" style="max-width:420px;max-height:82vh;overflow-y:auto;">
+            <div class="modal-header" style="position:sticky;top:0;background:rgba(5,10,20,0.97);z-index:2;padding-bottom:12px;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <i class="fa-solid fa-robot" style="color:var(--primary-cyan);font-size:20px;"></i>
+                    <h3 class="modal-title" style="margin:0;">Fitur ZainAI</h3>
+                </div>
+                <button class="modal-close" id="helpModalClose" onclick="closeHelpModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+
+                <!-- VidSnap -->
+                <div class="help-feat-card">
+                    <div class="help-feat-icon" style="background:rgba(255,80,80,0.12);color:#ff5555;">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div class="help-feat-body">
+                        <div class="help-feat-title">Download Video (VidSnap)</div>
+                        <div class="help-feat-desc">Ketik <code>download [URL]</code> untuk download video YouTube / TikTok dalam format MP4, MP3, 720p, atau 1080p.</div>
+                    </div>
+                </div>
+
+                <!-- Musik -->
+                <div class="help-feat-card">
+                    <div class="help-feat-icon" style="background:rgba(0,217,255,0.12);color:var(--primary-cyan);">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                    <div class="help-feat-body">
+                        <div class="help-feat-title">Putar & Kontrol Musik</div>
+                        <div class="help-feat-desc">Ketik <code>putar [nama lagu]</code> untuk memutar musik. Bisa juga <code>pause</code>, <code>stop</code>, atau <code>lanjutkan</code> lewat chat.</div>
+                    </div>
+                </div>
+
+                <!-- Mode Worm -->
+                <div class="help-feat-card">
+                    <div class="help-feat-icon" style="background:rgba(255,0,0,0.12);color:#ff3333;">
+                        <i class="fa-solid fa-skull"></i>
+                    </div>
+                    <div class="help-feat-body">
+                        <div class="help-feat-title">Mode Worm-AI</div>
+                        <div class="help-feat-desc">Aktifkan di Pengaturan → Gaya Balasan → <b>Worm-AI</b>. AI jadi super kasar & ngamuk. Khusus buat yang mau drama! 😈</div>
+                    </div>
+                </div>
+
+                <!-- Singkat vs Riset -->
+                <div class="help-feat-card">
+                    <div class="help-feat-icon" style="background:rgba(100,200,255,0.1);color:#7bd4ff;">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div class="help-feat-body">
+                        <div class="help-feat-title">Pola Berpikir</div>
+                        <div class="help-feat-desc"><b>Singkat</b> → jawaban 2-3 kalimat langsung ke poin. <b>Riset Mendalam</b> → jawaban detail, lengkap, dengan heading & contoh.</div>
+                    </div>
+                </div>
+
+                <!-- Lokasi -->
+                <div class="help-feat-card">
+                    <div class="help-feat-icon" style="background:rgba(80,255,150,0.1);color:#4dffaa;">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="help-feat-body">
+                        <div class="help-feat-title">Lokasi & Info Cuaca</div>
+                        <div class="help-feat-desc">ZainAI tahu lokasi kamu secara otomatis dan bisa kasih info cuaca, waktu setempat, serta rekomendasi berbasis lokasi.</div>
+                    </div>
+                </div>
+
+                <!-- Mengaji -->
+                <div class="help-feat-card">
+                    <div class="help-feat-icon" style="background:rgba(255,200,80,0.12);color:#ffc850;">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                    <div class="help-feat-body">
+                        <div class="help-feat-title">Deteksi Mengaji</div>
+                        <div class="help-feat-desc">ZainAI bisa mendeteksi konteks mengaji dari histori chat dan menyesuaikan respons agar lebih sopan & relevan.</div>
+                    </div>
+                </div>
+
+                <!-- Kode -->
+                <div class="help-feat-card">
+                    <div class="help-feat-icon" style="background:rgba(160,100,255,0.12);color:#b06bff;">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="help-feat-body">
+                        <div class="help-feat-title">Bantu Coding</div>
+                        <div class="help-feat-desc">Minta buatin HTML/CSS/JS → otomatis digabung jadi 1 file. Tinggal copy-paste langsung jalan!</div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div style="background:rgba(0,217,255,0.05);border:1px solid rgba(0,217,255,0.1);border-radius:12px;padding:12px 14px;font-size:11.5px;color:rgba(255,255,255,0.4);line-height:1.6;">
+                    💡 <b style="color:rgba(0,217,255,0.6);">Tips:</b> Ketik <code>help</code> atau <code>fitur</code> di chat untuk lihat panduan ini via AI.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- Settings Modal -->
     <div class="modal" id="settingsModal">
         <div class="modal-overlay" onclick="closeSettings()"></div>
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">
-                    <i class="fa-solid fa-gear"></i>
+                    <i class="fa-solid fa-sliders"></i>
                     Pengaturan
                 </h2>
-                 <button class="btn-icon" onclick="showInfo()" title="Info">
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button class="btn-icon" onclick="showInfo()" title="Info" style="width:30px;height:30px;border-radius:8px;font-size:13px;">
                         <i class="fa-solid fa-circle-info"></i>
                     </button>
-                <button class="close-btn" onclick="closeSettings()">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                    <button class="close-btn" onclick="closeSettings()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
-            
             <div class="modal-body">
                 <div class="settings-group">
-                    <label class="settings-label">
-                        <i class="fa-solid fa-key"></i>
-                        Masukan Token
-                    </label>
+                    <label class="settings-label"><i class="fa-solid fa-key"></i> API Token</label>
                     <div class="input-with-icon">
-                        <input 
-                            type="password" 
-                            id="apiKeyInput" 
-                            class="settings-input" 
-                            placeholder="Masukkan Token Anda"
-                        >
+                        <input type="password" id="apiKeyInput" class="settings-input" placeholder="Masukkan token kamu...">
                         <button class="toggle-password" onclick="togglePassword('apiKeyInput')">
                             <i class="fa-solid fa-eye"></i>
                         </button>
                     </div>
-                    <small class="settings-hint">Beli Token di Telegram Owner <a href="https://t.me/alwysprtyfx" target="_blank">@alwysprtyfx</a></small>
+                    <small class="settings-hint">Beli token → Telegram <a href="https://t.me/alwysprtyfx" target="_blank">@alwysprtyfx</a></small>
                 </div>
-
                 <div class="settings-group">
-                    <label class="settings-label">
-                        <i class="fa-solid fa-puzzle-piece"></i>Pola Berpikir AI
-                    </label>
-                    <div class="response-length-grid">
-                        <div class="response-card" data-length="short" onclick="selectResponseLength('short')">
-                            <div class="response-card-icon"><i class="fa-solid fa-bolt"></i></div>
-                            <div class="response-card-title">Singkat</div>
-                            <div class="response-card-desc">Jawaban to the point (Tidak berlaku di Worm-AI)</div>
+                    <label class="settings-label"><i class="fa-solid fa-brain"></i> Pola Berpikir</label>
+                    <div class="sett-row">
+                        <div class="sett-pill" data-length="short" onclick="selectResponseLength('short')">
+                            <i class="fa-solid fa-bolt"></i><span>Singkat</span>
                         </div>
-                        <div class="response-card" data-length="long" onclick="selectResponseLength('long')">
-                            <div class="response-card-icon"><i class="fa-solid fa-brain"></i></div>
-                            <div class="response-card-title">Riset Mendalam</div>
-                            <div class="response-card-desc">Detail & lengkap dengan analisis</div>
+                        <div class="sett-pill" data-length="long" onclick="selectResponseLength('long')">
+                            <i class="fa-solid fa-magnifying-glass"></i><span>Riset Mendalam</span>
                         </div>
                     </div>
                 </div>
-
                 <div class="settings-group">
-                    <label class="settings-label">
-                        <i class="fa-solid fa-comments"></i>Gaya Balasan
-                    </label>
-                    <div class="response-length-grid" style="grid-template-columns: repeat(2, 1fr);">
-                        <div class="response-card active" data-style="neutral" onclick="selectResponseStyle('neutral')">
-                            <div class="response-card-icon"><i class="fa-solid fa-cube"></i></div>
-                            <div class="response-card-title">Normal</div>
-                            <div class="response-card-desc">Balasan Netral & Normal</div>
+                    <label class="settings-label"><i class="fa-solid fa-comments"></i> Gaya Balasan</label>
+                    <div class="sett-row">
+                        <div class="sett-pill active" data-style="neutral" onclick="selectResponseStyle('neutral')">
+                            <i class="fa-solid fa-cube"></i><span>Normal</span>
                         </div>
-                        <div class="response-card" data-style="angry" onclick="selectResponseStyle('angry')">
-                            <div class="response-card-icon"><i class="fa-solid fa-skull"></i></div>
-                            <div class="response-card-title">Worm-AI</div>
-                            <div class="response-card-desc">Balasan Kasar & Tegas</div>
+                        <div class="sett-pill sett-pill-danger" data-style="angry" onclick="selectResponseStyle('angry')">
+                            <i class="fa-solid fa-skull"></i><span>Worm-AI</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="settings-group">
+                <div class="settings-group" style="margin-bottom:0;">
                     <button class="btn-danger-full" onclick="clearChat()">
-                        <i class="fa-solid fa-trash-can"></i>
-                        Hapus Riwayat Chat
+                        <i class="fa-solid fa-trash-can"></i> Hapus Riwayat Chat
                     </button>
                 </div>
             </div>
-
             <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeSettings()">
-                    <i class="fa-solid fa-xmark"></i>
-                    Batal
-                </button>
+                <button class="btn-secondary" onclick="closeSettings()">Batal</button>
                 <button class="btn-primary" onclick="saveSettings()">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    Simpan Pengaturan
+                    <i class="fa-solid fa-check"></i> Simpan
                 </button>
             </div>
         </div>
@@ -4559,7 +4743,7 @@ let apiKey = localStorage.getItem('groqApiKey') || '';
 let model = 'llama-3.3-70b-versatile'; // Fixed model (recommended)
 let temperature = 0.7; // Fixed temperature
 let maxTokens = 4096; // Fixed max tokens
-let responseLength = localStorage.getItem('responseLength') || 'short'; // Default: short
+let responseLength = localStorage.getItem('responseLength') || 'short'; // default Singkat // Default: short
 let responseStyle = localStorage.getItem('responseStyle') || 'neutral'; // Default: neutral (no emoji)
 let isGenerating = false; // Flag saat AI sedang balas
 let userLocation = null; // Simpan lokasi user
@@ -4598,6 +4782,9 @@ function getWelcomeScreenHTML() {
             <div class="hero-icon"><i class="fa-solid fa-robot"></i></div>
             <h1 class="hero-title">Selamat Datang di ZainAI</h1>
             <p class="hero-subtitle">Asisten AI Cerdas Bertenaga VPS - Siap Membantu Anda</p>
+            <button id="helpBtn" onclick="openHelpModal()" style="margin-top:14px;padding:9px 20px;border-radius:30px;background:rgba(0,217,255,0.08);border:1px solid rgba(0,217,255,0.3);color:var(--primary-cyan);font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s ease, border-color 0.2s ease, color 0.2s ease;animation:fadeInUp 0.5s cubic-bezier(.22,1,.36,1) 0.4s both;">
+                <i class="fa-solid fa-circle-question"></i> Lihat Semua Fitur
+            </button>
         </div>
         <div class="features-section">
             <h3 class="section-title">Apa yang bisa saya bantu?</h3>
@@ -6367,6 +6554,24 @@ function showPage(id){
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // Animasi masuk halaman musik
+  if (id === 'music') {
+    const resetAnim = (el, cls) => {
+      if (!el) return;
+      el.classList.remove(cls);
+      void el.offsetWidth; // reflow
+      el.classList.add(cls);
+    };
+    resetAnim(document.querySelector('#music .brand'), 'music-anim-brand');
+    resetAnim(document.querySelector('#music .cd-box'), 'music-anim-cd');
+    resetAnim(document.querySelector('#music .visualizer'), 'music-anim-visual');
+    resetAnim(document.querySelector('#music .yt-info'), 'music-anim-info');
+    resetAnim(document.querySelector('#music .yt-bar'), 'music-anim-bar');
+    resetAnim(document.querySelector('#music .controls'), 'music-anim-ctrl');
+    resetAnim(document.getElementById('searchSong'), 'music-anim-search');
+    resetAnim(document.getElementById('playlistBox'), 'music-anim-list');
+  }
+
   // === OVERFLOW: hidden hanya saat AI ===
   if(id === 'ai'){
     document.body.style.overflow = 'hidden';
@@ -6782,6 +6987,41 @@ function showPage(pageId) {
   opacity: 1;
   transform: translate(0, 0);
 }
+@keyframes helpModalIn {
+    from { opacity:0; transform:scale(0.94) translateY(16px); }
+    to   { opacity:1; transform:scale(1) translateY(0); }
+}
+/* Help feature cards */
+.help-feat-card {
+    display:flex;gap:12px;align-items:flex-start;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:14px;padding:12px 14px;
+    transition:background 0.2s, border-color 0.2s;
+}
+.help-feat-card:hover {
+    background:rgba(0,217,255,0.05);
+    border-color:rgba(0,217,255,0.15);
+}
+.help-feat-icon {
+    width:38px;height:38px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;flex-shrink:0;
+}
+.help-feat-body { flex:1;min-width:0; }
+.help-feat-title { font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:4px; }
+.help-feat-desc { font-size:11.5px;color:rgba(255,255,255,0.45);line-height:1.55; }
+.help-feat-desc code { background:rgba(0,217,255,0.1);color:var(--primary-cyan);padding:1px 5px;border-radius:4px;font-size:11px; }
+
+/* Khusus web rekomendasi - cepat */
+.reveal.fast {
+  transform: translateY(15px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.reveal.fast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 
 <script>
@@ -6800,26 +7040,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // paragraf satu per satu
     about.querySelectorAll('p').forEach((p, i) => {
       p.classList.add('reveal');
-      p.style.transitionDelay = (i * 0.12) + 's';
+      p.style.transitionDelay = (i * 0.04) + 's';
     });
   }
 
   // Skill cards
   document.querySelectorAll('.skillcard').forEach((card, i) => {
     card.classList.add('reveal');
-    card.style.transitionDelay = (i * 0.15) + 's';
+    card.style.transitionDelay = (i * 0.05) + 's';
   });
 
   // What I Do cards
   document.querySelectorAll('.whatido-card').forEach((card, i) => {
     card.classList.add('reveal');
-    card.style.transitionDelay = (i * 0.1) + 's';
+    card.style.transitionDelay = (i * 0.04) + 's';
   });
 
   // Hobi & Minat cards
   document.querySelectorAll('.hobi-card').forEach((card, i) => {
     card.classList.add('reveal');
-    card.style.transitionDelay = (i * 0.12) + 's';
+    card.style.transitionDelay = (i * 0.04) + 's';
   });
   const hobiSection = document.querySelector('.hobi-section');
   if (hobiSection) hobiSection.classList.add('reveal');
@@ -6827,31 +7067,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // skill-category (Featured Projects)
   document.querySelectorAll('.skill-category').forEach((el, i) => {
     el.classList.add('reveal');
-    el.style.transitionDelay = (i * 0.1) + 's';
+    el.style.transitionDelay = (i * 0.04) + 's';
   });
 
   // stat-box
   document.querySelectorAll('.stat-box').forEach((el, i) => {
     el.classList.add('reveal');
-    el.style.transitionDelay = (i * 0.1) + 's';
+    el.style.transitionDelay = (i * 0.04) + 's';
   });
 
-  // project cards
+  // project cards (web rekomendasi - fast)
   document.querySelectorAll('.project-card, .product-card').forEach((el, i) => {
-    el.classList.add('reveal');
-    el.style.transitionDelay = (i * 0.08) + 's';
+    el.classList.add('reveal', 'fast');
+    el.style.transitionDelay = (i * 0.04) + 's';
   });
 
   // projects-section titles & desc
   document.querySelectorAll('.projects-section').forEach((el, i) => {
     el.classList.add('reveal');
-    el.style.transitionDelay = (i * 0.1) + 's';
+    el.style.transitionDelay = (i * 0.04) + 's';
   });
 
   // store cards
   document.querySelectorAll('.store-card').forEach((el, i) => {
     el.classList.add('reveal');
-    el.style.transitionDelay = (i * 0.12) + 's';
+    el.style.transitionDelay = (i * 0.04) + 's';
   });
 
   // contact section
@@ -6862,17 +7102,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactBox = document.querySelector('.contact-box');
   if (contactBox) {
     contactBox.classList.add('reveal');
-    contactBox.style.transitionDelay = '0.1s';
+    contactBox.style.transitionDelay = '0.03s';
   }
 
-  // IntersectionObserver
+  // IntersectionObserver - animasi berulang setiap masuk layar
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+      } else {
+        // Hapus visible saat keluar layar → animasi berulang
+        entry.target.classList.remove('visible');
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.05 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 });
@@ -7006,27 +7249,14 @@ function loadSettings() {
     if (apiKey) {
         document.getElementById('apiKeyInput').value = apiKey;
     }
-    // Load response length setting
-    const lengthCards = document.querySelectorAll('.response-card[data-length]');
-    lengthCards.forEach(card => {
-        if (card.dataset.length === responseLength) {
-            card.classList.add('active');
-        } else {
-            card.classList.remove('active');
-        }
+    // Sync semua cards dan pills
+    document.querySelectorAll('.response-card[data-length], .sett-pill[data-length]').forEach(el => {
+        el.classList.toggle('active', el.dataset.length === responseLength);
     });
-    
-    // Load response style setting
-    const styleCards = document.querySelectorAll('.response-card[data-style]');
-    styleCards.forEach(card => {
-        if (card.dataset.style === responseStyle) {
-            card.classList.add('active');
-        } else {
-            card.classList.remove('active');
-        }
+    document.querySelectorAll('.response-card[data-style], .sett-pill[data-style]').forEach(el => {
+        el.classList.toggle('active', el.dataset.style === responseStyle);
     });
-    
-    // Apply angry theme if angry mode is saved
+    // Apply angry theme if saved
     if (responseStyle === 'angry') {
         document.getElementById('ai').classList.add('angry-theme');
         updateWelcomeScreenForWormMode(true);
@@ -7035,32 +7265,44 @@ function loadSettings() {
     }
 }
 
-// Select response length
+// Temp settings (belum disimpan)
+let tempResponseLength = responseLength;
+let tempResponseStyle = responseStyle;
+
+// Select response length - preview langsung, belum simpan
 function selectResponseLength(length) {
-    responseLength = length;
-    const cards = document.querySelectorAll('.response-card[data-length]');
-    cards.forEach(card => {
-        if (card.dataset.length === length) {
-            card.classList.add('active');
-        } else {
-            card.classList.remove('active');
-        }
+    tempResponseLength = length;
+    document.querySelectorAll('.sett-pill[data-length]').forEach(p => {
+        p.classList.toggle('active', p.dataset.length === length);
     });
+    // Warna active pill ikut tema yang sedang dipilih
+    const isAngry = tempResponseStyle === 'angry';
+    document.querySelectorAll('.sett-pill[data-length].active').forEach(p => {
+        p.style.borderColor = isAngry ? 'rgba(255,0,0,0.4)' : '';
+        p.style.color = isAngry ? '#ff3333' : '';
+        p.style.background = isAngry ? 'rgba(255,0,0,0.12)' : '';
+    });
+    document.querySelectorAll('.sett-pill[data-length]:not(.active)').forEach(p => {
+        p.style.borderColor = isAngry ? 'rgba(255,0,0,0.15)' : '';
+        p.style.color = isAngry ? 'rgba(255,100,100,0.5)' : '';
+        p.style.background = '';
+    });
+    const lengthLabel = {'short':'beralih ke singkat...','long':'beralih ke riset mendalam...'};
+    showModeSpinner(lengthLabel[length] || 'mengganti mode...');
 }
 
-// Select response style
+// Select response style - preview langsung
 function selectResponseStyle(style) {
-    responseStyle = style;
-    const cards = document.querySelectorAll('.response-card[data-style]');
-    cards.forEach(card => {
-        if (card.dataset.style === style) {
-            card.classList.add('active');
-        } else {
-            card.classList.remove('active');
-        }
+    tempResponseStyle = style;
+
+    document.querySelectorAll('.sett-pill[data-style]').forEach(p => {
+        p.classList.toggle('active', p.dataset.style === style);
     });
-    
-    // Toggle angry theme dengan loading
+
+    const styleLabel = {'normal':'beralih ke normal...','fun':'beralih ke informal...','angry':'mode worm aktif...'};
+    showModeSpinner(styleLabel[style] || 'mengganti mode...');
+    applyModalPreview(style);
+    return;
     if (style === 'angry') {
         // Cari modal yang sedang terbuka
         const settingsModal = document.getElementById('settingsModal');
@@ -7155,11 +7397,27 @@ function updateWelcomeScreenForWormMode(isWormMode) {
     const sectionTitle = welcomeScreen.querySelector('.section-title');
     const featureCards = welcomeScreen.querySelectorAll('.feature-card');
     
+    const helpBtn = document.getElementById('helpBtn');
     if (isWormMode) {
         // Ubah teks untuk Worm-AI
         if (heroTitle) heroTitle.textContent = 'Apa lu mau ke Worm ZainAI';
         if (heroSubtitle) heroSubtitle.textContent = 'Pake Tenaga Memek lo noh yang bau banget';
         if (sectionTitle) sectionTitle.textContent = 'Gausah banyak mikir anjing, langsung ngomong aja bangsat 😡';
+        if (helpBtn) {
+            helpBtn.style.background='rgba(255,0,0,0.1)';
+            helpBtn.style.borderColor='rgba(255,0,0,0.35)';
+            helpBtn.style.color='#ff4444';
+            helpBtn.style.animation='none';
+            void helpBtn.offsetWidth;
+            helpBtn.style.animation='fadeInUp 0.5s cubic-bezier(.22,1,.36,1) 0.4s both';
+        }
+        // Help modal header warna worm
+        const hmRobot = document.querySelector('#helpModal .fa-robot');
+        const hmClose = document.querySelector('#helpModal .modal-close');
+        const hmTitle = document.querySelector('#helpModal .modal-title');
+        if (hmRobot) hmRobot.style.color = '#ff3333';
+        if (hmClose) { hmClose.style.background='rgba(255,0,0,0.12)'; hmClose.style.borderColor='rgba(255,0,0,0.3)'; hmClose.style.color='#ff4444'; }
+        if (hmTitle) hmTitle.style.color = '#ffffff';
         
         // Ubah feature cards menjadi tema hacking
         if (featureCards.length >= 6) {
@@ -7215,6 +7473,20 @@ function updateWelcomeScreenForWormMode(isWormMode) {
         // Kembalikan ke teks normal
         if (heroTitle) heroTitle.textContent = 'Selamat Datang di ZainAI';
         if (heroSubtitle) heroSubtitle.textContent = 'Asisten AI Cerdas Bertenaga VPS - Siap Membantu Anda';
+        if (helpBtn) {
+            helpBtn.style.background='rgba(0,217,255,0.08)';
+            helpBtn.style.borderColor='rgba(0,217,255,0.3)';
+            helpBtn.style.color='var(--primary-cyan)';
+            helpBtn.style.animation='none';
+            void helpBtn.offsetWidth;
+            helpBtn.style.animation='fadeInUp 0.5s cubic-bezier(.22,1,.36,1) 0.4s both';
+        }
+        const hmRobot = document.querySelector('#helpModal .fa-robot');
+        const hmClose = document.querySelector('#helpModal .modal-close');
+        const hmTitle = document.querySelector('#helpModal .modal-title');
+        if (hmRobot) hmRobot.style.color = 'var(--primary-cyan)';
+        if (hmClose) { hmClose.style.background=''; hmClose.style.borderColor=''; hmClose.style.color=''; }
+        if (hmTitle) hmTitle.style.color = '';
         if (sectionTitle) sectionTitle.textContent = 'Apa yang bisa saya bantu?';
         
         // Kembalikan feature cards ke normal
@@ -7600,10 +7872,10 @@ async function sendMessage() {
         
         // Atur panjang jawaban
         if (responseLength === 'short') {
-            systemPrompt += 'Berikan jawaban yang SINGKAT dan PADAT. Langsung ke poin utama tanpa penjelasan panjang.';
+            systemPrompt += 'PENTING: Kamu WAJIB menjawab dengan SANGAT SINGKAT. Maksimal 3-4 kalimat saja. DILARANG KERAS membuat heading, sub-heading, atau paragraf panjang. Tidak perlu pengantar, tidak perlu penutup. Langsung jawab intinya saja dalam 1-3 kalimat. Jika pertanyaan butuh list, maksimal 3 poin saja tanpa penjelasan tambahan. INGAT: singkat, padat, langsung ke poin!';
         } 
         else { // long
-            systemPrompt += 'Berikan jawaban yang SANGAT DETAIL, SANGAT LENGKAP, dan KOMPREHENSIF. Jelaskan dengan mendalam, berikan contoh, analisis dari berbagai sudut pandang, dan informasi tambahan yang relevan. Gunakan format yang terstruktur dengan paragraf yang jelas. ';
+            systemPrompt += 'Berikan jawaban yang SANGAT DETAIL, SANGAT LENGKAP, dan KOMPREHENSIF. Jelaskan dengan mendalam, berikan contoh, analisis dari berbagai sudut pandang, dan informasi tambahan yang relevan. Gunakan format yang terstruktur dengan heading dan paragraf yang jelas. ';
         }
         
         // Atur gaya emoji dan tone
@@ -8161,11 +8433,90 @@ function clearChat() {
 }
 
 // Settings modal functions
+function openHelpModal() {
+    document.getElementById('helpModal').classList.add('active');
+    // Animasi header
+    const mc = document.querySelector('#helpModal .modal-content');
+    if (mc) {
+        mc.style.animation = 'none';
+        void mc.offsetWidth;
+        mc.style.animation = 'helpModalIn 0.3s cubic-bezier(.22,1,.36,1) both';
+    }
+    // Animasi tiap card satu per satu
+    const cards = document.querySelectorAll('#helpModal .help-feat-card');
+    cards.forEach((c, i) => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateY(20px)';
+        c.style.transition = 'none';
+        setTimeout(() => {
+            c.style.transition = 'opacity 0.3s ease, transform 0.3s cubic-bezier(.22,1,.36,1)';
+            c.style.opacity = '1';
+            c.style.transform = 'translateY(0)';
+        }, 80 + i * 65);
+    });
+    // Sesuaikan warna dengan mode aktif
+    const isAngry = responseStyle === 'angry';
+    const hmRobot = document.querySelector('#helpModal .fa-robot');
+    const hmClose = document.querySelector('#helpModal .modal-close');
+    const hmTitle = document.querySelector('#helpModal .modal-title');
+    if (hmRobot) hmRobot.style.color = isAngry ? '#ff3333' : 'var(--primary-cyan)';
+    if (hmTitle) hmTitle.style.color = isAngry ? '#ffffff' : '';
+    if (hmClose) {
+        hmClose.style.background = isAngry ? 'rgba(255,0,0,0.12)' : '';
+        hmClose.style.borderColor = isAngry ? 'rgba(255,0,0,0.3)' : '';
+        hmClose.style.color = isAngry ? '#ff4444' : '';
+    }
+}
+function closeHelpModal() {
+    document.getElementById('helpModal').classList.remove('active');
+}
+
 function openSettings() {
+    // Reset temp ke nilai yang sudah tersimpan
+    tempResponseLength = responseLength;
+    tempResponseStyle = responseStyle;
+    // Sync UI pills ke nilai tersimpan
+    document.querySelectorAll('.sett-pill[data-length]').forEach(p => {
+        p.classList.toggle('active', p.dataset.length === responseLength);
+    });
+    document.querySelectorAll('.sett-pill[data-style]').forEach(p => {
+        p.classList.toggle('active', p.dataset.style === responseStyle);
+    });
     document.getElementById('settingsModal').classList.add('active');
 }
 
+function applyModalPreview(style) {
+    const ai = document.getElementById('ai');
+    const modal = document.getElementById('settingsModal');
+    if (style === 'angry') {
+        ai.classList.add('angry-theme');
+    } else {
+        ai.classList.remove('angry-theme');
+        // Force reset semua inline style di dalam modal
+        modal.querySelectorAll('.sett-pill').forEach(p => {
+            p.style.cssText = '';
+        });
+        modal.querySelectorAll('.settings-label').forEach(l => {
+            l.style.cssText = '';
+            if(l.querySelector('i')) l.querySelector('i').style.cssText = '';
+        });
+        const mc = modal.querySelector('.modal-content');
+        if(mc) mc.style.cssText = '';
+        const header = modal.querySelector('.modal-header');
+        if(header) header.style.cssText = '';
+        const footer = modal.querySelector('.modal-footer');
+        if(footer) footer.style.cssText = '';
+        const title = modal.querySelector('.modal-title');
+        if(title) title.style.cssText = '';
+    }
+}
+
 function closeSettings() {
+    // Reset temp jika batal
+    tempResponseLength = responseLength;
+    tempResponseStyle = responseStyle;
+    // Kembalikan tema ke yang tersimpan
+    applyModalPreview(responseStyle);
     document.getElementById('settingsModal').classList.remove('active');
 }
 
@@ -8173,24 +8524,111 @@ function saveSettings() {
     const keyInput = document.getElementById('apiKeyInput').value.trim();
     
     if (!keyInput) {
-        showNotification('Token tidak boleh kosong!', 'error');
+        showSmallNotif('Token tidak boleh kosong', 'error');
         return;
     }
     
-    // Validate API key format (basic check)
     if (!keyInput.startsWith('gsk_')) {
-        showNotification('Format Token tidak valid.', 'error');
+        showSmallNotif('Format token tidak valid', 'error');
         return;
     }
     
+    const prevStyle = responseStyle;
     apiKey = keyInput;
+    responseLength = tempResponseLength;
+    responseStyle = tempResponseStyle;
     
     localStorage.setItem('groqApiKey', apiKey);
     localStorage.setItem('responseLength', responseLength);
     localStorage.setItem('responseStyle', responseStyle);
     
-    showNotification('Pengaturan berhasil disimpan!', 'success');
     closeSettings();
+    
+    // Apply tema setelah modal tutup
+    setTimeout(() => {
+        if (responseStyle === 'angry' && prevStyle !== 'angry') {
+            applyAngryTheme(true);
+        } else if (responseStyle !== 'angry' && prevStyle === 'angry') {
+            applyAngryTheme(false);
+        }
+        showSmallNotif('Tersimpan', 'success');
+    }, 200);
+}
+
+function applyAngryTheme(enable) {
+    const ai = document.getElementById('ai');
+    if (enable) {
+        ai.classList.add('angry-theme');
+        chatHistory = chatHistories.worm;
+        renderChatFromHistory(chatHistory);
+        updateWelcomeScreenForWormMode(true);
+    } else {
+        ai.classList.remove('angry-theme');
+        chatHistory = chatHistories.normal;
+        renderChatFromHistory(chatHistory);
+        updateWelcomeScreenForWormMode(false);
+    }
+}
+
+function showModeSpinner(label) {
+    const modal = document.querySelector('#settingsModal .modal-content');
+    if (!modal || document.getElementById('modeSpinner')) return;
+
+    // Cek tema yang sedang dipilih (tempResponseStyle)
+    const isAngry = tempResponseStyle === 'angry';
+    const dotColor = isAngry ? '#ff3333' : 'var(--primary-cyan)';
+    const glowColor = isAngry ? 'rgba(255,0,0,0.08)' : 'rgba(0,217,255,0.08)';
+    const txtColor = isAngry ? 'rgba(255,150,150,0.5)' : 'rgba(255,255,255,0.4)';
+
+    const overlay = document.createElement('div');
+    overlay.id = 'modeSpinner';
+    overlay.style.cssText = `
+        position:absolute;inset:0;z-index:9999;border-radius:20px;
+        display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+        background:rgba(0,0,0,0);backdrop-filter:blur(0px);
+        pointer-events:all;transition:background 0.3s ease, backdrop-filter 0.3s ease;
+    `;
+
+    const dots = document.createElement('div');
+    dots.style.cssText = 'display:flex;gap:8px;align-items:center;';
+    for(let i=0;i<3;i++){
+        const d = document.createElement('div');
+        d.style.cssText = `width:10px;height:10px;border-radius:50%;background:${dotColor};opacity:0;transform:translateY(0);animation:dotBounce 0.9s ease-in-out ${i*0.18}s infinite;box-shadow:0 0 8px ${dotColor};`;
+        dots.appendChild(d);
+    }
+
+    const txt = document.createElement('div');
+    txt.style.cssText = `color:${txtColor};font-size:11px;letter-spacing:0.1em;opacity:0;transition:opacity 0.3s ease 0.2s;`;
+    txt.textContent = label || (isAngry ? 'mode worm aktif...' : 'mengganti mode...');
+
+    overlay.appendChild(dots);
+    overlay.appendChild(txt);
+    modal.appendChild(overlay);
+
+    requestAnimationFrame(() => {
+        overlay.style.background = isAngry ? 'rgba(20,0,0,0.55)' : 'rgba(0,0,0,0.45)';
+        overlay.style.backdropFilter = 'blur(4px)';
+        txt.style.opacity = '1';
+    });
+
+    setTimeout(() => {
+        overlay.style.transition = 'background 0.3s ease, backdrop-filter 0.3s ease, opacity 0.3s ease';
+        overlay.style.opacity = '0';
+        setTimeout(() => overlay.remove(), 350);
+    }, 900);
+}
+
+function showSmallNotif(msg, type) {
+    const existing = document.getElementById('smallNotif');
+    if (existing) existing.remove();
+    const notif = document.createElement('div');
+    notif.id = 'smallNotif';
+    const color = type === 'success' ? '#00d9ff' : type === 'error' ? '#ff4444' : '#888';
+    notif.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(10,14,22,0.92);border:1px solid ${color}33;color:${color};padding:8px 18px;border-radius:20px;font-size:12px;font-weight:600;z-index:99999;opacity:0;transition:all 0.25s ease;backdrop-filter:blur(10px);letter-spacing:0.03em;`;
+    notif.textContent = msg;
+    document.body.appendChild(notif);
+    setTimeout(() => { notif.style.opacity = '1'; notif.style.transform = 'translateX(-50%) translateY(0)'; }, 10);
+    setTimeout(() => { notif.style.opacity = '0'; notif.style.transform = 'translateX(-50%) translateY(6px)'; setTimeout(() => notif.remove(), 300); }, 2000);
 }
 
 function togglePassword(inputId) {
@@ -8224,6 +8662,11 @@ function showNotification(message, type = 'info') {
 // Add CSS for notification animation
 const style = document.createElement('style');
 style.textContent = `
+    @keyframes spinAnim { to { transform: rotate(360deg); } }
+    @keyframes dotBounce {
+        0%, 100% { transform: translateY(0); opacity: 0.3; }
+        50% { transform: translateY(-10px); opacity: 1; }
+    }
     @keyframes slideInRight {
         from {
             transform: translateX(400px);
@@ -9053,18 +9496,19 @@ function cekDownloadVideo(message, lowerMessage) {
 
     let url = null;
 
-    // Cek ada URL YouTube/TikTok di pesan
+    // Cek ada URL YouTube/TikTok/Instagram di pesan
     if (urls) {
         url = urls.find(u =>
             u.includes('youtube.com') || u.includes('youtu.be') ||
-            u.includes('tiktok.com') || u.includes('vm.tiktok.com')
+            u.includes('tiktok.com') || u.includes('vm.tiktok.com') || u.includes('vt.tiktok.com') ||
+            u.includes('instagram.com') || u.includes('instagr.am')
         );
     }
 
     if (!url && !isDownloadIntent) return false;
     if (!url && isDownloadIntent) {
         setTimeout(() => {
-            addMessage('📥 Mau download video? Kirim link YouTube atau TikTok-nya ya!\n\nContoh:\n• download https://youtube.com/watch?v=xxx\n• https://tiktok.com/@user/video/xxx', 'ai');
+            addMessage('📥 Mau download? Kirim link YouTube, TikTok, atau Instagram-nya ya!\n\nContoh:\n• download https://youtube.com/watch?v=xxx\n• https://tiktok.com/@user/video/xxx\n• https://instagram.com/p/xxx', 'ai');
         }, 400);
         return true;
     }
@@ -9073,6 +9517,7 @@ function cekDownloadVideo(message, lowerMessage) {
     let platform = 'unknown';
     if (url.includes('youtube.com') || url.includes('youtu.be')) platform = 'youtube';
     else if (url.includes('tiktok.com')) platform = 'tiktok';
+    else if (url.includes('instagram.com') || url.includes('instagr.am')) platform = 'instagram';
 
     // Tampilkan card download
     setTimeout(() => {
@@ -9091,10 +9536,13 @@ function showDownloadCard(url, platform) {
     contentDiv.style.cssText = 'display:block;width:100%;max-width:100%;';
 
     const isYT = platform === 'youtube';
-    const color = isYT ? '#ff3c3c' : '#00f0c8';
-    const colorBg = isYT ? 'rgba(255,60,60,0.12)' : 'rgba(0,240,200,0.12)';
-    const colorBorder = isYT ? 'rgba(255,60,60,0.35)' : 'rgba(0,240,200,0.35)';
-    const label = isYT ? 'YouTube' : 'TikTok';
+    const isIG = platform === 'instagram';
+    const color = isYT ? '#ff3c3c' : isIG ? '#e040fb' : '#00f0c8';
+    const colorBg = isYT ? 'rgba(255,60,60,0.12)' : isIG ? 'rgba(224,64,251,0.12)' : 'rgba(0,240,200,0.12)';
+    const colorBorder = isYT ? 'rgba(255,60,60,0.35)' : isIG ? 'rgba(224,64,251,0.35)' : 'rgba(0,240,200,0.35)';
+    const label = isYT ? 'YouTube' : isIG ? 'Instagram' : 'TikTok';
+    // Instagram hanya MP4 (tidak support MP3/kualitas pilihan)
+    const formats = isIG ? ['mp4'] : ['mp4','mp3','720','1080'];
     const cardId = 'dl_' + Math.random().toString(36).substr(2,6);
 
     const card = document.createElement('div');
@@ -9117,7 +9565,7 @@ function showDownloadCard(url, platform) {
         </div>
         <div style="font-size:13px;color:rgba(255,255,255,0.5);word-break:break-all;margin-bottom:14px;background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:8px;">${url}</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
-            ${['mp4','mp3','720','1080'].map(f => `
+            ${formats.map(f => `
                 <button onclick="vidSnapDownload('${cardId}','${url}','${f}')"
                     style="padding:9px 16px;border-radius:8px;border:1px solid ${colorBorder};background:${colorBg};color:${color};font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;"
                     onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
@@ -9135,7 +9583,7 @@ function showDownloadCard(url, platform) {
 }
 
 // Ganti dengan URL Render kamu setelah deploy!
-const PROXY_URL = 'https://fixtures-doing-buffer-cincinnati.trycloudflare.com';
+const PROXY_URL = 'https://filter-exclusively-advise-lived.trycloudflare.com';
 
 async function vidSnapDownload(cardId, url, format) {
     const statusEl = document.getElementById(cardId + '_status');
@@ -9177,17 +9625,30 @@ async function vidSnapDownload(cardId, url, format) {
 
             if (job.status === 'done') {
                 statusEl.style.display = 'none';
-                resultEl.innerHTML = `
-                    <a href="${PROXY_URL}/api/file/${job_id}" target="_blank" download="${job.filename}"
-                        style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
-                        Download
-                    </a>
-                    <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">${job.filename}</div>
-                `;
+                if (job.is_zip && job.content_type === 'photos') {
+                    // Foto/slideshow TikTok - download zip
+                    resultEl.innerHTML = `
+                        <div style="font-size:12px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:8px;">
+                            📸 ${job.photo_count} foto ditemukan — dizip jadi 1 file
+                        </div>
+                        <a href="${PROXY_URL}/api/file/${job_id}" target="_blank" download="${job.filename}"
+                            style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
+                            📥 Download ${job.photo_count} Foto (ZIP)
+                        </a>
+                    `;
+                } else {
+                    resultEl.innerHTML = `
+                        <a href="${PROXY_URL}/api/file/${job_id}" target="_blank" download="${job.filename}"
+                            style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
+                            📥 Download
+                        </a>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">${job.filename}</div>
+                    `;
+                }
                 done = true;
                 break;
             } else if (job.status === 'error') {
-                statusEl.innerHTML = 'Error: ' + job.error;
+                statusEl.innerHTML = '❌ ' + (job.error.includes('Unsupported') ? 'Konten tidak didukung (coba URL video langsung)' : job.error);
                 resultEl.style.display = 'none';
                 done = true;
                 break;
