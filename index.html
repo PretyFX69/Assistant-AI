@@ -9541,29 +9541,34 @@ function showDownloadCard(url, platform) {
     const colorBg = isYT ? 'rgba(255,60,60,0.12)' : isIG ? 'rgba(224,64,251,0.12)' : 'rgba(0,240,200,0.12)';
     const colorBorder = isYT ? 'rgba(255,60,60,0.35)' : isIG ? 'rgba(224,64,251,0.35)' : 'rgba(0,240,200,0.35)';
     const label = isYT ? 'YouTube' : isIG ? 'Instagram' : 'TikTok';
-    // Instagram hanya MP4 (tidak support MP3/kualitas pilihan)
-    const formats = isIG ? ['mp4'] : ['mp4','mp3','720','1080'];
+    const formats = ['mp4','mp3','720','1080'];
     const cardId = 'dl_' + Math.random().toString(36).substr(2,6);
 
     const card = document.createElement('div');
     card.id = cardId;
+    card.dataset.color = color;
+    card.dataset.colorBg = colorBg;
+    card.dataset.colorBorder = colorBorder;
     card.style.cssText = [
         'background:linear-gradient(135deg,rgba(10,20,40,0.97),rgba(5,15,30,0.97))',
         `border:2px solid ${colorBorder}`,
         'border-radius:16px',
-        'padding:18px',
+        'padding:16px',
         `box-shadow:0 0 24px ${colorBg}`,
         'width:100%',
+        'max-width:100%',
         'box-sizing:border-box',
         'color:#fff',
         'font-family:inherit',
+        'overflow:hidden',
+        'word-break:break-word',
     ].join(';');
 
     card.innerHTML = `
         <div style="display:inline-flex;align-items:center;gap:6px;background:${colorBg};border:1px solid ${colorBorder};color:${color};font-size:12px;padding:4px 12px;border-radius:99px;margin-bottom:14px;">
             VidSnap · ${label} Downloader
         </div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.5);word-break:break-all;margin-bottom:14px;background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:8px;">${url}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);word-break:break-all;overflow-wrap:break-word;white-space:normal;margin-bottom:14px;background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:8px;max-width:100%;overflow:hidden;">${url.length > 60 ? url.substring(0,60)+'...' : url}</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
             ${formats.map(f => `
                 <button onclick="vidSnapDownload('${cardId}','${url}','${f}')"
@@ -9583,11 +9588,15 @@ function showDownloadCard(url, platform) {
 }
 
 // Ganti dengan URL Render kamu setelah deploy!
-const PROXY_URL = 'https://dealing-unix-composition-ricky.trycloudflare.com';
+const PROXY_URL = 'https://filter-exclusively-advise-lived.trycloudflare.com';
 
 async function vidSnapDownload(cardId, url, format) {
     const statusEl = document.getElementById(cardId + '_status');
     const resultEl = document.getElementById(cardId + '_result');
+    const cardEl = document.getElementById(cardId);
+    const dlColor = (cardEl && cardEl.dataset.color) || '#00f0c8';
+    const dlColorBg = (cardEl && cardEl.dataset.colorBg) || 'rgba(0,240,200,0.1)';
+    const dlColorBorder = (cardEl && cardEl.dataset.colorBorder) || 'rgba(0,240,200,0.35)';
 
     statusEl.style.display = 'block';
     statusEl.innerHTML = 'Memulai download...';
@@ -9632,17 +9641,17 @@ async function vidSnapDownload(cardId, url, format) {
                             📸 ${job.photo_count} foto ditemukan — dizip jadi 1 file
                         </div>
                         <a href="${PROXY_URL}/api/file/${job_id}" target="_blank" download="${job.filename}"
-                            style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
+                            style="display:block;width:100%;padding:13px;text-align:center;background:${dlColorBg};border:1px solid ${dlColorBorder};border-radius:10px;color:${dlColor};font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
                             📥 Download ${job.photo_count} Foto (ZIP)
                         </a>
                     `;
                 } else {
                     resultEl.innerHTML = `
-                        <a href="${PROXY_URL}/api/file/${job_id}" target="_blank" download="${job.filename}"
-                            style="display:block;width:100%;padding:13px;text-align:center;background:rgba(0,240,200,0.1);border:1px solid #00f0c8;border-radius:10px;color:#00f0c8;font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
+                        <a href="${PROXY_URL}/api/file/${job_id}" target="_blank" download="${job.filename || 'video.mp4'}"
+                            style="display:block;width:100%;padding:13px;text-align:center;background:${dlColorBg};border:1px solid ${dlColorBorder};border-radius:10px;color:${dlColor};font-weight:700;font-size:14px;text-decoration:none;box-sizing:border-box;">
                             📥 Download
                         </a>
-                        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">${job.filename}</div>
+                        ${job.filename && job.filename !== 'undefined' ? `<div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;text-align:center;">${job.filename}</div>` : ''}
                     `;
                 }
                 done = true;
