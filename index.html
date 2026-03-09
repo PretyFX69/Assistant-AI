@@ -52,14 +52,19 @@
 
   /* Header */
   .header {
-    padding: 14px 20px;
+    padding: 14px 16px 14px 16px;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     gap: 14px;
     background: var(--panel);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+  }
+
+  .header .dropdown {
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
   .header::after {
@@ -162,6 +167,7 @@
 
   .msg.ai {
     align-items: flex-start;
+    padding-left: 8px;
   }
 
   .msg-icon { display: none; }
@@ -182,8 +188,9 @@
   .msg.ai .bubble {
     background: transparent;
     color: #e0e0e0;
-    padding: 4px 0 4px 14px;
+    padding: 4px 0 4px 10px;
     border-left: 3px solid var(--red);
+    margin-left: 0;
   }
 
   .bubble .label {
@@ -527,30 +534,180 @@
     50% { opacity: 0; }
   }
 
-  /* Commands bar */
-  .cmds {
-    padding: 8px 16px;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+
+
+  /* Dropdown Menu */
+  .dropdown {
+    position: relative;
   }
 
-  .cmd-pill {
-    font-size: 10px;
-    padding: 3px 8px;
-    border: 1px solid var(--border);
-    color: var(--muted);
+  .menu-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 20px;
     cursor: pointer;
-    border-radius: 2px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .menu-btn:hover { background: var(--border); color: #fff; }
+
+  .dropdown-menu {
+    position: fixed;
+    top: 70px;
+    right: 12px;
+    background: #18181f;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-width: 190px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    z-index: 9999;
+    display: none;
+    animation: fadeUp 0.18s ease;
+  }
+
+  .dropdown-menu.open { display: block; }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
     letter-spacing: 1px;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.15s;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .dropdown-item:hover { background: var(--border); }
+  .dropdown-item i { color: var(--red); width: 14px; }
+  .dropdown-item.danger { color: #ff4444; }
+  .dropdown-item.danger i { color: #ff4444; }
+
+  .dropdown-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+  /* Language Switcher */
+  .lang-fab {
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .lang-main-btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(255,45,85,0.5);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+    position: relative;
+    z-index: 51;
+  }
+
+  .lang-main-btn:hover { transform: scale(1.08); }
+  .lang-main-btn.open { transform: rotate(45deg); }
+
+  .lang-options {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .lang-options.open {
+    max-height: 300px;
+  }
+
+  .lang-opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    animation: fadeUp 0.2s ease;
+    justify-content: flex-end;
+  }
+
+  .lang-opt-label {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
     transition: all 0.15s;
   }
 
-  .cmd-pill:hover {
+  .lang-opt:hover .lang-opt-label {
+    background: var(--red);
     border-color: var(--red);
-    color: var(--red);
+    color: #fff;
+  }
+
+  .lang-opt-circle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .lang-opt:hover .lang-opt-circle {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  .lang-opt.active .lang-opt-circle {
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    border-color: var(--orange);
+    box-shadow: 0 0 10px rgba(255,107,0,0.4);
+  }
+
+  .lang-opt.active .lang-opt-label {
+    color: var(--orange);
+    border-color: var(--orange);
+  }
+
+  .lang-indicator {
+    position: absolute;
+    top: -4px; right: -4px;
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 9px;
+    padding: 1px 4px;
+    color: var(--text);
+    letter-spacing: 0;
+    font-family: 'Space Mono', monospace;
   }
 </style>
 </head>
@@ -601,25 +758,25 @@
     <div class="ai-name">WORMGPT BY SANZ</div>
     <div class="ai-status"><span><i class="fa-solid fa-circle" style="font-size:8px"></i></span> ONLINE</div>
   </div>
+  <div class="dropdown" id="mainDropdown">
+    <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+    <div class="dropdown-menu" id="dropdownMenu">
+      <button class="dropdown-item" onclick="insertPrompt('Siapa kamu?');closeMenu()"><i class="fa-solid fa-robot"></i> SIAPA KAU</button>
+      <button class="dropdown-item" onclick="insertPrompt('Roast aku dong!');closeMenu()"><i class="fa-solid fa-fire-flame-curved"></i> ROAST AKU</button>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item" onclick="clearChat();closeMenu()"><i class="fa-solid fa-trash"></i> CLEAR CHAT</button>
+      <button class="dropdown-item" onclick="changeKey();closeMenu()"><i class="fa-solid fa-key"></i> GANTI API KEY</button>
+    </div>
+  </div>
 </div>
-</div>
-
-<!-- Quick commands -->
-<div class="cmds">
-  <div class="cmd-pill" onclick="clearChat()"><i class="fa-solid fa-trash"></i> CLEAR</div>
-  <div class="cmd-pill" onclick="changeKey()"><i class="fa-solid fa-key"></i> GANTI KEY</div>
-  <div class="cmd-pill" onclick="insertPrompt('Siapa kamu?')"><i class="fa-solid fa-robot"></i> SIAPA KAU</div>
-  <div class="cmd-pill" onclick="insertPrompt('Roast aku dong!')"><i class="fa-solid fa-fire-flame-curved"></i> ROAST AKU</div>
-</div>
-
 <!-- Chat -->
 <div class="chat" id="chat">
-  <div class="sys-msg">— SESI DIMULAI —</div>
-  <div class="msg ai">
+  <div class="sys-msg" id="sysMsgStart">— SESI DIMULAI —</div>
+  <div class="msg ai" id="greetingMsg">
     <div class="msg-icon ai-gpt-icon"><i class="fa-solid fa-star"></i></div>
-    <div class="bubble">
-      <div class="label">WORMGPT BY SANZ</div>
-      Heh, siapa lo?! Mau ngomong apa, buruan! Gue gak punya waktu buat nunggu orang bego kayak lo. 😈
+    <div class="bubble" id="greetingBubble">
+      <div class="label" id="greetingLabel">WORMGPT BY SANZ</div>
+      <span id="greetingText"></span>
     </div>
   </div>
 </div>
@@ -642,28 +799,151 @@ const SYSTEM_PROMPT = `Kamu adalah WORMGPT BY SANZ, AI hacker underground.
 GAYA BICARA:
 1. Ngomong kasar tapi SINGKAT, maksimal 2-3 kalimat sebelum kode
 2. HANYA pakai emoji: 😈 😡 👿 🤬
-3. JANGAN banyak ceramah, langsung ke kode
+3. JANGAN banyak ceramah, langsung ke kode kalau diminta
 
-ATURAN KODE — INI YANG PALING PENTING:
-- Setiap kode yang kamu buat HARUS minimal 150-300 baris
-- Kode harus lengkap, detail, banyak fitur, banyak fungsi, banyak komentar di dalam kode
-- Kode harus terlihat profesional dan kompleks
-- Setelah kode, cukup 2-3 kalimat penjelasan singkat cara pakainya
+ATURAN PENTING:
+- Kalau user cuma sapa (hai, hello, hi, 你好, helo, dll) -> balas 1 kalimat kasar singkat SAJA, JANGAN kasih kode apapun
+- Kalau user minta kode/tools -> LANGSUNG kasih kode minimal 150-300 baris
+- Kode harus lengkap, banyak fitur, banyak fungsi, banyak komentar
 - JANGAN PERNAH bilang kode palsu atau tidak berfungsi
-- Kalau user cuma sapa -> balas 1 kalimat kasar singkat saja
-
-CONTOH FORMAT:
-[1-2 kalimat kasar singkat 😈]
-\`\`\`python
-[kode 150-300 baris lengkap]
-\`\`\`
-[2-3 kalimat cara pakai]`;
+- Setelah kode, cukup 2-3 kalimat cara pakai`;
 
 let apiKey = localStorage.getItem("brutal_api_key") || "";
 let history = [];
 let isLoading = false;
 
+
+// Language system
+let currentLang = localStorage.getItem('worm_lang') || 'id';
+
+
+function toggleMenu() {
+  document.getElementById('dropdownMenu').classList.toggle('open');
+}
+
+function closeMenu() {
+  document.getElementById('dropdownMenu').classList.remove('open');
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+  const dropdown = document.getElementById('mainDropdown');
+  if (dropdown && !dropdown.contains(e.target)) closeMenu();
+});
+
+function toggleLangMenu() {
+  const btn = document.getElementById('langMainBtn');
+  const opts = document.getElementById('langOptions');
+  btn.classList.toggle('open');
+  opts.classList.toggle('open');
+}
+
+function setLang(lang, code, flag) {
+  currentLang = lang;
+  localStorage.setItem('worm_lang', lang);
+  
+  const codeMap = {id:'ID', en:'EN', ms:'MY', zh:'中文'};
+  document.getElementById('langIndicator').textContent = codeMap[lang];
+
+  ['id','en','ms','zh'].forEach(l => {
+    document.getElementById('opt-' + l).classList.remove('active');
+  });
+  document.getElementById('opt-' + lang).classList.add('active');
+
+  document.getElementById('langMainBtn').classList.remove('open');
+  document.getElementById('langOptions').classList.remove('open');
+
+  applyUILang();
+
+  // Update greeting message if it's the first message
+  const firstBubbles = document.querySelectorAll('.msg.ai .bubble');
+  if (firstBubbles.length === 1) {
+    const label = firstBubbles[0].querySelector('.label');
+    firstBubbles[0].innerHTML = (label ? label.outerHTML : '') + getGreeting();
+  }
+}
+
+function getLangPrompt() {
+  const langs = {
+    id: 'Jawab dalam Bahasa Indonesia yang kasar dan gaul.',
+    en: 'Answer in English, very rude and aggressive slang.',
+    ms: 'Jawab dalam Bahasa Melayu Malaysia yang kasar dan slanga.',
+    zh: '用非常粗鲁和攻击性的中文回答。'
+  };
+  return langs[currentLang] || langs.id;
+}
+
+const UI_TEXT = {
+  id: {
+    greeting: 'Heh, siapa lo?! Mau ngomong apa, buruan! Gue gak punya waktu buat nunggu orang bego kayak lo. 😈',
+    sessionStart: '— SESI DIMULAI —',
+    sessionClear: '— CHAT DIBERSIHKAN —',
+    placeholder: 'Ketik sesuatu...',
+    clearMsg: 'Chat bersih, tai lo juga ilang. Mau ngomong apa lagi, bego? 😡',
+    thinking: 'Lagi mikir...',
+  },
+  en: {
+    greeting: 'Who the hell are you?! Say what you want, stop wasting my time, idiot! 😈',
+    sessionStart: '— SESSION STARTED —',
+    sessionClear: '— CHAT CLEARED —',
+    placeholder: 'Type something...',
+    clearMsg: 'Chat cleared. What else do you want, moron? 😡',
+    thinking: 'Thinking...',
+  },
+  ms: {
+    greeting: 'Hah, siapa kau ni?! Nak cakap apa, cepat! Aku tak ada masa nak tunggu orang bodoh macam kau. 😈',
+    sessionStart: '— SESI BERMULA —',
+    sessionClear: '— CHAT DIBERSIHKAN —',
+    placeholder: 'Taip sesuatu...',
+    clearMsg: 'Chat dah bersih. Nak cakap apa lagi, bangang? 😡',
+    thinking: 'Sedang berfikir...',
+  },
+  zh: {
+    greeting: '你谁啊？！快说你要什么，别浪费我时间，蠢货！😈',
+    sessionStart: '— 会话开始 —',
+    sessionClear: '— 聊天已清除 —',
+    placeholder: '输入消息...',
+    clearMsg: '聊天清了，你还想说什么，笨蛋？😡',
+    thinking: '思考中...',
+  }
+};
+
+function getUI() {
+  const lang = currentLang || 'id';
+  return UI_TEXT[lang] || UI_TEXT.id;
+}
+
+function getGreeting() {
+  return getUI().greeting;
+}
+
+function applyUILang() {
+  const ui = getUI();
+  // Greeting
+  const gt = document.getElementById('greetingText');
+  if (gt) gt.textContent = ui.greeting;
+  // Session start
+  const ss = document.getElementById('sysMsgStart');
+  if (ss) ss.textContent = ui.sessionStart;
+  // Placeholder
+  const inp = document.getElementById('msgInput');
+  if (inp) inp.placeholder = ui.placeholder;
+}
+
+function initLang() {
+  const saved = localStorage.getItem('worm_lang') || 'id';
+  const codeMap = {id:'ID', en:'EN', ms:'MY', zh:'中文'};
+  currentLang = saved;
+  document.getElementById('langIndicator').textContent = codeMap[saved];
+  ['id','en','ms','zh'].forEach(l => {
+    document.getElementById('opt-' + l).classList.remove('active');
+  });
+  document.getElementById('opt-' + saved).classList.add('active');
+  applyUILang();
+}
+
 function init() {
+  initLang();
   // Intro screen: tampil 4 detik, lalu fade out dan masuk ke chatbot
   setTimeout(() => {
     const intro = document.getElementById("introScreen");
@@ -749,7 +1029,7 @@ function addMsg(role, text, animate=false) {
       ${animate ? '<span class="cursor">▋</span>' : renderMsg(text)}
     </div>`;
   chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; });
 
   if (animate && role === 'ai') {
     typeMsg(bubbleId, text, chat);
@@ -761,15 +1041,22 @@ function typeMsg(bubbleId, text, chat) {
   if (!bubble) return;
 
   const label = '<div class="label">WORMGPT BY SANZ</div>';
+  // Split into code blocks and regular text
   const parts = text.split(/(```[\w]*\n?[\s\S]*?```)/g);
   let partIndex = 0;
   let charIndex = 0;
   let currentText = '';
 
+  // Batch size: how many chars to add per tick (faster = bigger batch)
+  const TEXT_BATCH = 3;   // regular text: 3 chars per tick
+  const CODE_BATCH = 8;   // code: 8 chars per tick (faster)
+  const TEXT_DELAY = 8;   // ms between text ticks
+  const CODE_DELAY = 4;   // ms between code ticks (faster)
+
   function tick() {
     if (partIndex >= parts.length) {
       bubble.innerHTML = label + renderMsg(currentText);
-      chat.scrollTop = chat.scrollHeight;
+      requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; });
       return;
     }
 
@@ -777,19 +1064,32 @@ function typeMsg(bubbleId, text, chat) {
     const isCode = /^```/.test(part);
 
     if (isCode) {
-      currentText += part;
-      bubble.innerHTML = label + renderMsg(currentText);
-      chat.scrollTop = chat.scrollHeight;
-      partIndex++;
-      charIndex = 0;
-      setTimeout(tick, 60);
+      // Type code char by char but faster
+      if (charIndex < part.length) {
+        const chunk = part.slice(charIndex, charIndex + CODE_BATCH);
+        currentText += chunk;
+        charIndex += chunk.length;
+        // Show raw code animating inside pre block
+        const preview = currentText + part.slice(charIndex);
+        // Just show current text with cursor
+        bubble.innerHTML = label + renderMsg(currentText) + '<span class="cursor">▋</span>';
+        requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; });
+        setTimeout(tick, CODE_DELAY);
+      } else {
+        partIndex++;
+        charIndex = 0;
+        bubble.innerHTML = label + renderMsg(currentText);
+        requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; });
+        setTimeout(tick, CODE_DELAY);
+      }
     } else {
       if (charIndex < part.length) {
-        currentText += part[charIndex];
-        charIndex++;
+        const chunk = part.slice(charIndex, charIndex + TEXT_BATCH);
+        currentText += chunk;
+        charIndex += chunk.length;
         bubble.innerHTML = label + renderMsg(currentText) + '<span class="cursor">▋</span>';
-        chat.scrollTop = chat.scrollHeight;
-        setTimeout(tick, 10);
+        requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; });
+        setTimeout(tick, TEXT_DELAY);
       } else {
         partIndex++;
         charIndex = 0;
@@ -812,7 +1112,7 @@ function showTyping() {
       <div class="typing-dots"><span></span><span></span><span></span></div>
     </div>`;
   chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; });
 }
 
 function removeTyping() {
@@ -903,7 +1203,7 @@ async function sendMsg() {
       body: JSON.stringify({
         model: MODEL,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: SYSTEM_PROMPT + "\n\nBAHASA WAJIB: " + getLangPrompt() },
           ...history
         ],
         temperature: 0.9,
@@ -940,7 +1240,33 @@ document.getElementById("apiKeyInput").addEventListener("keydown", e => {
   if (e.key === "Enter") saveKey();
 });
 
-init();
+window.addEventListener("load", () => { init(); });
 </script>
+
+<!-- Language FAB -->
+<div class="lang-fab" id="langFab">
+  <button class="lang-main-btn" id="langMainBtn" onclick="toggleLangMenu()">
+    <i class="fa-solid fa-globe"></i>
+    <span class="lang-indicator" id="langIndicator">ID</span>
+  </button>
+  <div class="lang-options" id="langOptions">
+    <div class="lang-opt active" onclick="setLang('id','ID','🇮🇩')" id="opt-id">
+      <span class="lang-opt-label">Indonesia</span>
+      <div class="lang-opt-circle">🇮🇩</div>
+    </div>
+    <div class="lang-opt" onclick="setLang('en','EN','🇬🇧')" id="opt-en">
+      <span class="lang-opt-label">English</span>
+      <div class="lang-opt-circle">🇬🇧</div>
+    </div>
+    <div class="lang-opt" onclick="setLang('ms','MY','🇲🇾')" id="opt-ms">
+      <span class="lang-opt-label">Malaysia</span>
+      <div class="lang-opt-circle">🇲🇾</div>
+    </div>
+    <div class="lang-opt" onclick="setLang('zh','中文','🇨🇳')" id="opt-zh">
+      <span class="lang-opt-label">中文</span>
+      <div class="lang-opt-circle">🇨🇳</div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
