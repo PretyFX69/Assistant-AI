@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ruby.min.js"></script>
 <style>
   :root {
     --bg: #0d0d0f;
@@ -1137,19 +1142,25 @@ function renderMsg(text) {
       const id = 'code_' + Math.random().toString(36).substr(2,6);
       
       let highlighted;
+      let detectedLang = lang;
       try {
-        if (lang && hljs.getLanguage(lang)) {
-          highlighted = hljs.highlight(code, { language: lang }).value;
+        if (lang && lang !== 'plaintext' && hljs.getLanguage(lang)) {
+          const result2 = hljs.highlight(code, { language: lang });
+          highlighted = result2.value;
+          detectedLang = lang;
         } else {
-          highlighted = hljs.highlightAuto(code).value;
+          const result2 = hljs.highlightAuto(code, ['python','javascript','bash','php','ruby','java','cpp','c','sql','html','css']);
+          highlighted = result2.value;
+          detectedLang = result2.language || 'code';
         }
       } catch(e) {
         highlighted = escHtml(code);
+        detectedLang = 'code';
       }
       
       result += `<div class="code-block">
         <div class="code-header">
-          <span><i class="fa-solid fa-code"></i> ${lang.toUpperCase() || 'CODE'}</span>
+          <span><i class="fa-solid fa-code"></i> ${detectedLang.toUpperCase()}</span>
           <button class="copy-btn" onclick="copyCode('${id}')"><i class="fa-regular fa-copy"></i> COPY</button>
         </div>
         <pre id="${id}" class="hljs"><code>${highlighted}</code></pre>
