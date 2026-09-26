@@ -15,49 +15,21 @@
 .pfx-music-root.show { display: flex; }
 
 /* TOPBAR */
+/* TOPBAR */
 .pfx-m-topbar {
   position: relative;
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: calc(50px + env(safe-area-inset-top, 0px)) 14px 12px;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 14px 12px;
   gap: 10px;
 
-  /* Gradient glow sama kayak header Tools */
+  /* Glow gradient tetap ada */
   background:
     radial-gradient(140% 120% at 50% -30%, rgba(99, 102, 241, 0.22) 0%, transparent 55%),
     radial-gradient(120% 100% at 85% 0%, rgba(168, 85, 247, 0.14) 0%, transparent 50%),
     radial-gradient(120% 100% at 15% 0%, rgba(6, 182, 212, 0.10) 0%, transparent 50%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-}
-
-/* Garis aksen bercahaya di tengah atas — sama posisinya dengan Tools */
-.pfx-m-topbar::before {
-  content: '';
-  position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 3px;
-  border-radius: 99px;
-  background: linear-gradient(90deg, #6366f1, #a855f7, #06b6d4);
-  opacity: 0.55;
-  box-shadow: 0 0 14px rgba(129, 140, 248, 0.55);
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Garis aksen tipis di bawah topbar */
-.pfx-m-topbar::after {
-  content: '';
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.65), rgba(168, 85, 247, 0.55), transparent);
-  pointer-events: none;
 }
 .pfx-m-logo { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .pfx-m-logo-icon {
@@ -312,7 +284,7 @@
 .pfx-search-view.show { display: flex; animation: pfxFadeIn .2s ease both; }
 .pfx-search-bar {
   display: flex; align-items: center; gap: 10px;
-  padding: calc(56px + env(safe-area-inset-top, 0px)) 14px 12px;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 14px 12px;
   flex-shrink: 0;
 }
 .pfx-search-bar input {

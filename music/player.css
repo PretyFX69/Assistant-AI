@@ -53,49 +53,21 @@
 .pfx-full-player.show { transform: translate3d(0, 0, 0); }
 
 /* ===== FULL PLAYER TOP (dengan glow seperti topbar music view) ===== */
+/* ===== FULL PLAYER TOP (dengan glow seperti topbar music view) ===== */
 .pfx-fp-top {
   position: relative;
   display: flex; align-items: center; justify-content: space-between;
-  padding: calc(56px + env(safe-area-inset-top, 0px)) 16px 18px;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px 14px;
   flex-shrink: 0;
   overflow: visible;
 
-  /* Gradient glow sama kayak .pfx-m-topbar */
+  /* Glow gradient tetap ada */
   background:
     radial-gradient(140% 120% at 50% -30%, rgba(99, 102, 241, 0.22) 0%, transparent 55%),
     radial-gradient(120% 100% at 85% 0%,   rgba(168, 85, 247, 0.14) 0%, transparent 50%),
     radial-gradient(120% 100% at 15% 0%,   rgba(6, 182, 212, 0.10) 0%, transparent 50%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-}
-
-/* Garis aksen bercahaya di tengah atas */
-.pfx-fp-top::before {
-  content: '';
-  position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 3px;
-  border-radius: 99px;
-  background: linear-gradient(90deg, #6366f1, #a855f7, #06b6d4);
-  opacity: 0.55;
-  box-shadow: 0 0 14px rgba(129, 140, 248, 0.55);
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Garis tipis pemisah di bawah top bar */
-.pfx-fp-top::after {
-  content: '';
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.65), rgba(168, 85, 247, 0.55), transparent);
-  pointer-events: none;
 }
 .pfx-fp-back, .pfx-fp-more {
   width: 40px; height: 40px; border: none; border-radius: 12px;
