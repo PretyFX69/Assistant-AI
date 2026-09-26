@@ -35,22 +35,31 @@
   transition: width .15s linear;
 }
 
-/* ===== FULL PLAYER ===== */
-/* ===== FULL PLAYER ===== */
 .pfx-full-player {
   position: fixed; inset: 0; z-index: 95000;
   display: flex; flex-direction: column;
   background: linear-gradient(165deg, #0a0c14 0%, #0d111f 40%, #0a0e18 100%);
   color: #f3f4f6;
   transform: translate3d(0, 100%, 0);
-  transition: transform .32s cubic-bezier(.4,0,.2,1);
+  /* visibility: hidden → gak bisa keliatan / ketutup kalau nyangkut */
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    transform .32s cubic-bezier(.4,0,.2,1),
+    visibility 0s linear .32s;
   overflow: hidden;
   height: var(--app-height, 100dvh);
-  will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
-.pfx-full-player.show { transform: translate3d(0, 0, 0); }
+.pfx-full-player.show {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    transform .32s cubic-bezier(.4,0,.2,1),
+    visibility 0s linear 0s;
+}
 
 /* ===== FULL PLAYER TOP (dengan glow seperti topbar music view) ===== */
 /* ===== FULL PLAYER TOP (dengan glow seperti topbar music view) ===== */
