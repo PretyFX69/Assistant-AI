@@ -672,11 +672,23 @@ let isLoggingOut = false; // <-- TAMBAHKAN INI
 
 
     function openAuthSheet(mode) {
-      switchAuthTab(mode || 'login');
-      document.getElementById('authSheet').classList.add('open');
-      document.getElementById('authSheetOverlay').classList.add('active');
-      if (window.innerWidth <= 768 && document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
+  // Tutup full player music kalau nyangkut kebuka
+  try {
+    const fp = document.getElementById('pfxFullPlayer');
+    if (fp) fp.classList.remove('show');
+  } catch (_) {}
+  // Tutup juga music root kalau kebuka
+  try {
+    if (window.PretvfxMusic && typeof window.PretvfxMusic.close === 'function') {
+      window.PretvfxMusic.close();
     }
+  } catch (_) {}
+
+  switchAuthTab(mode || 'login');
+  document.getElementById('authSheet').classList.add('open');
+  document.getElementById('authSheetOverlay').classList.add('active');
+  if (window.innerWidth <= 768 && document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
+}
 
     function closeAuthSheet() {
       document.getElementById('authSheet').classList.remove('open');
@@ -3685,13 +3697,15 @@ box.innerHTML = items.map(item => {
 
 
     function openProUpgradeModal() {
-      const el = document.getElementById('proUpgradeOverlay');
-      if (el) el.classList.add('show');
-    }
-    function closeProUpgradeModal() {
-      const el = document.getElementById('proUpgradeOverlay');
-      if (el) el.classList.remove('show');
-    }
+  // Safety: tutup full player kalau kebuka
+  try {
+    const fp = document.getElementById('pfxFullPlayer');
+    if (fp) fp.classList.remove('show');
+  } catch (_) {}
+
+  const el = document.getElementById('proUpgradeOverlay');
+  if (el) el.classList.add('show');
+}
 
     function updateComposerButtons() {
       const input = document.getElementById('promptInput');

@@ -455,9 +455,9 @@
     .voice-mode-btn.muted { color: #ef4444; background: rgba(239,68,68,0.15); }
     .voice-mode-close { background: #fff; color: #000; }
 
-    .model-sheet-overlay, .sheet-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+.model-sheet-overlay, .sheet-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 100200; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
     .model-sheet-overlay.active, .sheet-overlay.active { opacity: 1; visibility: visible; }
-    .model-bottom-sheet, .bottom-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: var(--panel-bg); border-top-left-radius: 24px; border-top-right-radius: 24px; z-index: 1000; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 12px 24px 32px; border-top: 1px solid var(--panel-border); box-shadow: 0 -4px 18px rgba(0,0,0,0.28); max-height: 88vh; overflow-y: auto; }
+.model-bottom-sheet, .bottom-sheet { position: fixed; bottom: 0; left: 0; right: 0; background: var(--panel-bg); border-top-left-radius: 24px; border-top-right-radius: 24px; z-index: 100201; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 12px 24px 32px; border-top: 1px solid var(--panel-border); box-shadow: 0 -4px 18px rgba(0,0,0,0.28); max-height: 88vh; overflow-y: auto; }
     .model-bottom-sheet.open, .bottom-sheet.open { transform: translateY(0); }
     .sheet-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 4px; margin: 0 auto 16px; }
     .model-sheet-header, .sheet-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; position: relative; }
