@@ -1,0 +1,191 @@
+/* ============================================================
+   Pretvfx-Tools — Downloader (TikTok / YouTube / Instagram / Facebook)
+   ============================================================ */
+.pfx-dl-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 2px 24px;
+}
+
+.pfx-dl-section { display: flex; flex-direction: column; gap: 8px; }
+.pfx-dl-label {
+  font-size: .78rem;
+  font-weight: 700;
+  color: rgba(199, 210, 254, .65);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.pfx-dl-inputrow { display: flex; gap: 8px; }
+.pfx-dl-input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(15, 19, 32, 0.55);
+  border: 1.5px solid rgba(99, 102, 241, 0.28);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #e8ecff;
+  font-size: .92rem;
+  outline: none;
+  transition: border-color .18s ease, background .18s ease;
+}
+.pfx-dl-input::placeholder { color: rgba(199, 210, 254, .4); }
+.pfx-dl-input:focus { border-color: rgba(99, 102, 241, .6); background: rgba(15, 19, 32, 0.75); }
+
+.pfx-dl-iconbtn {
+  flex-shrink: 0;
+  width: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(99,102,241,.28);
+  color: #c7d2fe;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .18s ease;
+}
+.pfx-dl-iconbtn:hover { background: rgba(99,102,241,.14); }
+
+.pfx-dl-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.pfx-dl-chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(99,102,241,.28);
+  color: #c7d2fe;
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.pfx-dl-chip.active {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  border-color: transparent;
+  color: #fff;
+}
+
+.pfx-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border-radius: 14px;
+  border: none;
+  font-size: .92rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .12s ease, filter .15s ease, opacity .18s ease;
+}
+.pfx-dl-btn:active:not([disabled]) { transform: scale(.97); }
+.pfx-dl-btn.primary {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(99,102,241,.35);
+}
+.pfx-dl-btn.primary:hover:not([disabled]) { filter: brightness(1.08); }
+.pfx-dl-btn[disabled] { opacity: .5; cursor: not-allowed; filter: grayscale(.4); }
+
+.pfx-dl-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(15, 19, 32, 0.55);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+}
+.pfx-dl-progress-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .85rem;
+  color: #c7d2fe;
+  font-weight: 600;
+}
+.pfx-dl-bar-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.pfx-dl-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  transition: width .3s ease;
+}
+
+.pfx-dl-result {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(15, 19, 32, 0.55);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.pfx-dl-result-row { display: flex; align-items: center; gap: 12px; }
+.pfx-dl-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.06);
+}
+.pfx-dl-thumb-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a855f7;
+  font-size: 1.3rem;
+}
+.pfx-dl-result-info { min-width: 0; flex: 1; }
+.pfx-dl-result-title {
+  font-size: .88rem;
+  font-weight: 700;
+  color: #e8ecff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pfx-dl-result-meta { font-size: .76rem; color: rgba(199,210,254,.6); margin-top: 2px; }
+
+.pfx-dl-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.pfx-dl-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 90px;
+  transform: translateX(-50%) translateY(14px);
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: rgba(20,24,40,.97);
+  border: 1px solid rgba(99,102,241,.35);
+  color: #c7d2fe;
+  font-size: .82rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+  z-index: 100400;
+  white-space: nowrap;
+  box-shadow: 0 12px 30px rgba(0,0,0,.45);
+}
+.pfx-dl-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 480px) {
+  .pfx-dl-chips { justify-content: space-between; }
+  .pfx-dl-chip { flex: 1; text-align: center; padding: 8px 6px; }
+}
