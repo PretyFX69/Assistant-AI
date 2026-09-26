@@ -3696,16 +3696,78 @@ box.innerHTML = items.map(item => {
     }
 
 
-    function openProUpgradeModal() {
-  // Safety: tutup full player kalau kebuka
+    /* ============================================================
+   PRO UPGRADE MODAL — dengan safety lengkap
+   ============================================================ */
+function openProUpgradeModal() {
+  // 1) Tutup dulu overlay lain yang mungkin nyangkut biar gak numpuk
   try {
     const fp = document.getElementById('pfxFullPlayer');
     if (fp) fp.classList.remove('show');
   } catch (_) {}
+  try {
+    document.getElementById('sidebar')?.classList.remove('open');
+    document.getElementById('sidebarOverlay')?.classList.remove('active');
+    document.body.classList.remove('sidebar-open');
+  } catch (_) {}
+  try {
+    document.getElementById('modelBottomSheet')?.classList.remove('open');
+    document.getElementById('modelSheetOverlay')?.classList.remove('active');
+    document.getElementById('modelSelectorButton')?.classList.remove('active');
+  } catch (_) {}
+  try {
+    document.getElementById('authSheet')?.classList.remove('open');
+    document.getElementById('authSheetOverlay')?.classList.remove('active');
+  } catch (_) {}
+  try {
+    document.getElementById('bottomSheet')?.classList.remove('open');
+    document.getElementById('sheetOverlay')?.classList.remove('active');
+  } catch (_) {}
+  try { closeTopExtrasMenu(); } catch (_) {}
+  try { closeAccountMenu(); } catch (_) {}
 
+  // 2) Baru buka pro modal
   const el = document.getElementById('proUpgradeOverlay');
-  if (el) el.classList.add('show');
+  if (el) {
+    el.classList.add('show');
+    el.style.display = '';
+    el.style.visibility = '';
+    el.style.pointerEvents = '';
+    el.setAttribute('aria-hidden', 'false');
+  }
 }
+
+function closeProUpgradeModal() {
+  const el = document.getElementById('proUpgradeOverlay');
+  if (!el) return;
+
+  // 1) Hapus class show + reset semua inline style yang mungkin nyangkut
+  el.classList.remove('show');
+  el.style.display = '';
+  el.style.visibility = '';
+  el.style.pointerEvents = '';
+  el.style.opacity = '';
+  el.setAttribute('aria-hidden', 'true');
+
+  // 2) Jaga-jaga kalau ada style inline pointer-events yang nyangkut
+  requestAnimationFrame(() => {
+    if (!el.classList.contains('show')) {
+      el.style.pointerEvents = '';
+    }
+  });
+
+  // 3) Safety: kalau ada overlay lain yang nyangkut bareng, tutup juga
+  try {
+    document.getElementById('confirmModalOverlay')?.classList.remove('show');
+  } catch (_) {}
+  try {
+    document.getElementById('warningModalOverlay')?.classList.remove('show');
+  } catch (_) {}
+}
+
+// Expose ke window biar onclick inline (dari HTML string) bisa manggil
+window.openProUpgradeModal = openProUpgradeModal;
+window.closeProUpgradeModal = closeProUpgradeModal;
 
     function updateComposerButtons() {
       const input = document.getElementById('promptInput');
@@ -4143,3 +4205,65 @@ box.innerHTML = items.map(item => {
       deepResearchEnabled = enabled;
       responseMode = enabled ? 'deep' : 'short';
     }
+
+/* ============================================================
+   SAFETY GLOBAL — ESC + Back Button nutup semua overlay
+   ============================================================ */
+(function setupGlobalOverlayClose() {
+  function closeTopOverlay() {
+    const pro = document.getElementById('proUpgradeOverlay');
+    if (pro && pro.classList.contains('show')) {
+      window.closeProUpgradeModal?.();
+      return true;
+    }
+    const confirm = document.getElementById('confirmModalOverlay');
+    if (confirm && confirm.classList.contains('show')) {
+      confirm.classList.remove('show');
+      return true;
+    }
+    const warn = document.getElementById('warningModalOverlay');
+    if (warn && warn.classList.contains('show')) {
+      warn.classList.remove('show');
+      return true;
+    }
+    const auth = document.getElementById('authSheet');
+    if (auth && auth.classList.contains('open')) {
+      window.closeAuthSheet?.();
+      return true;
+    }
+    const model = document.getElementById('modelBottomSheet');
+    if (model && model.classList.contains('open')) {
+      window.closeModelSheet?.();
+      return true;
+    }
+    const fp = document.getElementById('pfxFullPlayer');
+    if (fp && fp.classList.contains('show')) {
+      fp.classList.remove('show');
+      return true;
+    }
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar && sidebar.classList.contains('open')) {
+      window.toggleSidebar?.();
+      return true;
+    }
+    return false;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    closeTopOverlay();
+  });
+
+  window.addEventListener('popstate', () => {
+    if (closeTopOverlay()) {
+      try { history.pushState(null, '', location.href); } catch (_) {}
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const pro = document.getElementById('proUpgradeOverlay');
+    if (pro && pro.classList.contains('show') && e.target === pro) {
+      window.closeProUpgradeModal?.();
+    }
+  }, true);
+})();
