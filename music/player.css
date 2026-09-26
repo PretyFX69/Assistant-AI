@@ -1,0 +1,266 @@
+/* Pretvfx-Music player UI — npbar + full player + bubble + overlay */
+
+/* ===== MINI NOW PLAYING BAR ===== */
+.pfx-npbar {
+  position: absolute; left: 10px; right: 10px; bottom: 10px;
+  z-index: 300; display: none; align-items: center; gap: 10px;
+  padding: 8px 10px 8px 8px; border-radius: 14px;
+  background: rgba(14,17,28,.94);
+  border: 1px solid rgba(99,102,241,.25);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 32px rgba(0,0,0,.45); cursor: pointer;
+  transition: transform .28s cubic-bezier(.4,0,.2,1), opacity .28s ease;
+  transform: translateY(10px); opacity: 0;
+}
+.pfx-npbar.show { display: flex; transform: translateY(0); opacity: 1; }
+.pfx-npbar-cover { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.pfx-npbar-meta { flex: 1; min-width: 0; overflow: hidden; }
+.pfx-npbar-title { font-size: .88rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; }
+.pfx-npbar-artist { font-size: .72rem; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pfx-npbar-ctrls { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+.pfx-npbar-btn {
+  width: 36px; height: 36px; border: none; border-radius: 50%;
+  background: transparent; color: #e5e7eb; font-size: .95rem;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background .15s ease, transform .12s ease;
+}
+.pfx-npbar-btn:active { background: rgba(255,255,255,.08); transform: scale(.9); }
+.pfx-npbar-prog {
+  position: absolute; left: 8px; right: 8px; bottom: 0; height: 2px;
+  background: rgba(255,255,255,.1); border-radius: 0 0 14px 14px; overflow: hidden;
+}
+.pfx-npbar-prog-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  transition: width .15s linear;
+}
+
+/* ===== FULL PLAYER ===== */
+/* ===== FULL PLAYER ===== */
+.pfx-full-player {
+  position: fixed; inset: 0; z-index: 95000;
+  display: flex; flex-direction: column;
+  background: linear-gradient(165deg, #0a0c14 0%, #0d111f 40%, #0a0e18 100%);
+  color: #f3f4f6;
+  transform: translate3d(0, 100%, 0);
+  transition: transform .32s cubic-bezier(.4,0,.2,1);
+  overflow: hidden;
+  height: var(--app-height, 100dvh);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.pfx-full-player.show { transform: translate3d(0, 0, 0); }
+
+/* ===== FULL PLAYER TOP (dengan glow seperti topbar music view) ===== */
+.pfx-fp-top {
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: calc(56px + env(safe-area-inset-top, 0px)) 16px 18px;
+  flex-shrink: 0;
+  overflow: visible;
+
+  /* Gradient glow sama kayak .pfx-m-topbar */
+  background:
+    radial-gradient(140% 120% at 50% -30%, rgba(99, 102, 241, 0.22) 0%, transparent 55%),
+    radial-gradient(120% 100% at 85% 0%,   rgba(168, 85, 247, 0.14) 0%, transparent 50%),
+    radial-gradient(120% 100% at 15% 0%,   rgba(6, 182, 212, 0.10) 0%, transparent 50%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Garis aksen bercahaya di tengah atas */
+.pfx-fp-top::before {
+  content: '';
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #6366f1, #a855f7, #06b6d4);
+  opacity: 0.55;
+  box-shadow: 0 0 14px rgba(129, 140, 248, 0.55);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Garis tipis pemisah di bawah top bar */
+.pfx-fp-top::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.65), rgba(168, 85, 247, 0.55), transparent);
+  pointer-events: none;
+}
+.pfx-fp-back, .pfx-fp-more {
+  width: 40px; height: 40px; border: none; border-radius: 12px;
+  background: rgba(255,255,255,.06); color: #d1d5db;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; cursor: pointer;
+  transition: background .18s ease, transform .12s ease;
+}
+.pfx-fp-back:active, .pfx-fp-more:active { background: rgba(255,255,255,.14); transform: scale(.94); }
+.pfx-fp-source { text-align: center; flex: 1; }
+.pfx-fp-source span {
+  display: block; font-size: .65rem; letter-spacing: .08em;
+  text-transform: uppercase; color: #6b7280;
+}
+.pfx-fp-source strong {
+  font-size: .9rem; font-weight: 700;
+  background: linear-gradient(90deg, #a5b4fc, #c4b5fd, #67e8f9);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.pfx-fp-cover-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: 12px 28px 8px; min-height: 0;
+}
+.pfx-fp-cover {
+  width: min(78vw, 320px); aspect-ratio: 1; border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 20px 50px rgba(0,0,0,.55), 0 0 40px rgba(99,102,241,.15);
+  border: 1px solid rgba(255,255,255,.08);
+  animation: pfxCoverIn .35s ease both;
+}
+@keyframes pfxCoverIn {
+  from { opacity: 0; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.pfx-fp-info { padding: 4px 24px 0; text-align: center; flex-shrink: 0; }
+.pfx-fp-title { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 4px; overflow: hidden; white-space: nowrap; }
+.pfx-fp-artist { font-size: .92rem; color: #9ca3af; overflow: hidden; white-space: nowrap; }
+
+.pfx-marquee-host { overflow: hidden; max-width: 100%; margin: 0 auto; }
+.pfx-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+}
+.pfx-marquee.running {
+  animation-name: pfx-marquee-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.pfx-marquee-part {
+  display: inline-block;
+  padding-right: 40px; /* jarak antar teks saat loop */
+  white-space: nowrap;
+}
+@keyframes pfx-marquee-scroll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.pfx-fp-actions {
+  display: flex; justify-content: center; gap: 10px;
+  padding: 14px 16px 6px; flex-shrink: 0; flex-wrap: wrap;
+}
+.pfx-fp-action {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.05); color: #d1d5db;
+  font-size: .8rem; font-weight: 600; cursor: pointer;
+  transition: background .18s ease, transform .12s ease, border-color .18s ease, color .18s ease;
+}
+.pfx-fp-action:active { transform: scale(.95); }
+.pfx-fp-action.active { background: rgba(168,85,247,.18); border-color: rgba(168,85,247,.35); color: #e9d5ff; }
+.pfx-fp-action.liked { background: rgba(239,68,68,.15); border-color: rgba(239,68,68,.3); color: #fca5a5; }
+
+.pfx-fp-progress { padding: 10px 24px 4px; flex-shrink: 0; }
+.pfx-progress-bar {
+  position: relative; height: 5px; background: rgba(255,255,255,.12);
+  border-radius: 999px; cursor: pointer; touch-action: none;
+}
+.pfx-progress-fill {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1, #a855f7, #06b6d4); width: 0%;
+  pointer-events: none;
+}
+.pfx-progress-thumb {
+  position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%;
+  background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.4);
+  transform: translate(-50%,-50%); left: 0%; pointer-events: none; opacity: 0;
+}
+.pfx-progress-bar:active .pfx-progress-thumb,
+.pfx-progress-bar.seeking .pfx-progress-thumb { opacity: 1; }
+.pfx-progress-times {
+  display: flex; justify-content: space-between; margin-top: 6px;
+  font-size: .72rem; color: #6b7280;
+}
+
+.pfx-fp-controls {
+  display: flex; align-items: center; justify-content: center;
+  gap: 18px;
+  padding: 16px 20px calc(36px + env(safe-area-inset-bottom, 0px));
+  flex-shrink: 0;
+}
+.pfx-ctrl {
+  width: 44px; height: 44px; border: none; border-radius: 50%;
+  background: transparent; color: #e5e7eb; font-size: 1.15rem;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background .18s ease, transform .12s ease, color .18s ease;
+  position: relative;
+}
+.pfx-ctrl:active { transform: scale(.9); }
+.pfx-ctrl.active { color: #a78bfa; }
+.pfx-ctrl-play {
+  width: 64px; height: 64px; background: #f3f4f6; color: #0c0d14;
+  font-size: 1.35rem; box-shadow: 0 8px 24px rgba(0,0,0,.4);
+}
+
+/* ===== FLOATING BUBBLE (default atas kiri, di bawah sidebar) ===== */
+.pfx-music-bubble {
+  position: fixed;
+  left: 16px;
+  top: calc(96px + env(safe-area-inset-top, 0px));
+  width: 58px; height: 58px; border-radius: 50%;
+  z-index: 80;
+  display: none; cursor: grab; touch-action: none;
+  user-select: none;
+  box-shadow: 0 8px 28px rgba(0,0,0,.5), 0 0 20px rgba(99,102,241,.25);
+  border: 2px solid rgba(168,85,247,.45); background: #0d111f; overflow: visible;
+  transition:
+    left .3s cubic-bezier(.4,0,.2,1),
+    top .3s cubic-bezier(.4,0,.2,1),
+    transform .18s ease,
+    opacity .22s ease;
+}
+.pfx-music-bubble.show {
+  display: block;
+  animation: pfxBubbleIn .3s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes pfxBubbleIn {
+  from { opacity: 0; transform: scale(.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+.pfx-music-bubble.dragging {
+  cursor: grabbing; opacity: .92;
+  transition: transform .18s ease, opacity .22s ease;
+}
+.pfx-music-bubble img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; pointer-events: none; }
+.pfx-bubble-close {
+  position: absolute; top: -6px; right: -6px; width: 22px; height: 22px;
+  border-radius: 50%; border: none; background: rgba(15,18,30,.95);
+  color: #9ca3af; font-size: .65rem;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,.4); z-index: 2;
+}
+.pfx-bubble-pulse {
+  position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px solid rgba(168,85,247,.4);
+  animation: pfx-pulse 2s ease-out infinite; pointer-events: none;
+}
+@keyframes pfx-pulse {
+  0% { transform: scale(1); opacity: .6; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* Float overlay: tetap di bawah sidebar */
+.pfx-float-overlay { z-index: 85; }
