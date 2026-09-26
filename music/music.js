@@ -195,6 +195,10 @@ function buildRoot() {
   `;
   document.body.appendChild(fp);
 
+/* Pindahkan menu player ke <body> supaya bisa jadi bottom sheet full-width
+   (kalau di dalam .pfx-fp-top, si backdrop-filter bikin position:fixed ngunci di area topbar) */
+document.body.appendChild(document.getElementById('pfxPlayerMenu'));
+
   /* Bubble */
   const bubble = el('div', 'pfx-music-bubble');
   bubble.id = 'pfxMusicBubble';

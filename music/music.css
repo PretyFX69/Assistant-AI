@@ -433,29 +433,99 @@
 .pfx-sm-item:active { background: rgba(255,255,255,.05); }
 .pfx-sm-item i { width: 22px; text-align: center; color: #9ca3af; font-size: .95rem; }
 
-/* ========== PLAYER MENU (dropdown) ========== */
+/* ========== PLAYER MENU (bottom sheet) ========== */
 .pfx-playermenu {
-  position: absolute; top: 60px; right: 14px; z-index: 20;
-  min-width: 220px;
-  background: rgba(15,19,32,.98);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  z-index: 100500;
+
+  padding: 14px 14px calc(20px + env(safe-area-inset-bottom, 0px));
+
+  background: linear-gradient(180deg, #0f1424 0%, #0b0e1a 100%);
   border: 1px solid rgba(96,165,250,.28);
-  border-radius: 16px;
-  padding: 8px;
-  box-shadow: 0 16px 40px rgba(0,0,0,.55);
-  opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.96);
-  transform-origin: top right;
-  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  border-bottom: none;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+
+  box-shadow: 0 -12px 40px rgba(0,0,0,.55);
+
+  transform: translateY(100%);
+  transform-origin: bottom center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform .3s cubic-bezier(.4,0,.2,1),
+    opacity .25s ease,
+    visibility .25s ease,
+    box-shadow .25s ease;
 }
-.pfx-playermenu.show { opacity: 1; visibility: visible; transform: none; }
+
+.pfx-playermenu.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  /* Backdrop gelap full-viewport + shadow lembut di atas sheet */
+  box-shadow:
+    0 0 0 100vh rgba(2, 4, 10, 0.72),
+    0 -12px 40px rgba(0,0,0,.55);
+}
+
+/* Handle bar di atas sheet */
+.pfx-playermenu::before {
+  content: '';
+  display: block;
+  width: 42px;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255,255,255,.22);
+  margin: 0 auto 14px;
+}
+
+/* Judul "Menu" opsional di atas list */
+.pfx-playermenu::after {
+  content: 'Menu Pemutar';
+  display: block;
+  text-align: center;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #7c879c;
+  margin-bottom: 10px;
+}
+
 .pfx-pm-item {
   display: flex; align-items: center; gap: 14px;
-  width: 100%; padding: 12px 12px;
-  border: none; border-radius: 10px; background: transparent;
-  color: #e5e7eb; font-size: .9rem; text-align: left; cursor: pointer;
-  transition: background .15s ease;
+  width: 100%; padding: 14px 14px;
+  border: none; border-radius: 12px; background: transparent;
+  color: #e5e7eb; font-size: .95rem; text-align: left; cursor: pointer;
+  transition: background .15s ease, transform .12s ease;
 }
-.pfx-pm-item:active { background: rgba(96,165,250,.12); }
-.pfx-pm-item i { width: 20px; text-align: center; color: #60a5fa; font-size: .95rem; }
+.pfx-pm-item:active {
+  background: rgba(96,165,250,.12);
+  transform: scale(.98);
+}
+.pfx-pm-item i {
+  width: 22px;
+  text-align: center;
+  color: #60a5fa;
+  font-size: 1rem;
+}
+
+/* Kalau layar lebar (desktop), kasih sudut bawah juga biar kelihatan sheet */
+@media (min-width: 640px) {
+  .pfx-playermenu {
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    bottom: 16px;
+  }
+}
 
 /* ========== SLEEP TIMER BADGE (di bawah nama artis) ========== */
 .pfx-fp-sleep {
