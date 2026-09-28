@@ -484,6 +484,20 @@ let viewingOtherModels = false;
     const introLoading = document.getElementById('intro-loading');
     let introClosed = false;
 
+    function forceDarkBg() {
+      // Paksa layer utama tetap gelap — cegah flash putih di WebView
+      try {
+        document.documentElement.style.backgroundColor = '#07090e';
+        if (document.body) document.body.style.backgroundColor = '#07090e';
+        var app = document.querySelector('.app-container');
+        if (app) app.style.backgroundColor = '#07090e';
+        var main = document.querySelector('.chat-main');
+        if (main) main.style.backgroundColor = '#07090e';
+        var msgs = document.getElementById('messagesContainer');
+        if (msgs) msgs.style.backgroundColor = '#07090e';
+      } catch (_) {}
+    }
+
     function finishIntro() {
       if (introClosed) return;
       introClosed = true;
@@ -492,11 +506,14 @@ let viewingOtherModels = false;
         introContainer.style.opacity = "0";
         setTimeout(() => {
           introContainer.style.display = 'none';
+          try { introContainer.remove(); } catch (_) {}
           introFinished = true;
+          forceDarkBg();
           if (typeof resolveIntroFinished === 'function') resolveIntroFinished();
         }, 450);
       } else {
         introFinished = true;
+        forceDarkBg();
         if (typeof resolveIntroFinished === 'function') resolveIntroFinished();
       }
     }
@@ -520,6 +537,16 @@ let viewingOtherModels = false;
     loadVoicesOnce();
     updateComposerButtons();
     setupGalleryVideoObserver();
+
+    // Paksa gelap lagi saat app kembali dari background / keyboard
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && typeof forceDarkBg === 'function') {
+        forceDarkBg();
+      }
+    });
+    window.addEventListener('focus', () => {
+      if (typeof forceDarkBg === 'function') forceDarkBg();
+    });
   });
 
     const SUPABASE_URL = "https://avomctrjaroyourindwh.supabase.co";
@@ -1473,6 +1500,8 @@ let isLoggingOut = false; // <-- TAMBAHKAN INI
     }
 
     function openTopExtrasMenu() {
+      // Saat menu dibuka, paksa repaint gelap (workaround bug putih WebView)
+      if (typeof forceDarkBg === 'function') forceDarkBg();
       const menu = document.getElementById('topExtrasMenu');
       if (!menu) return;
       menu.classList.add('open');
