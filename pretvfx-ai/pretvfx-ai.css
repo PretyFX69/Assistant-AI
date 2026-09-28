@@ -15,56 +15,10 @@
     button:focus, input:focus, textarea:focus, select:focus, a:focus, div:focus, span:focus { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
     ::selection { background: rgba(168, 85, 247, 0.3); color: #ffffff; }
 
-    /* ===== FIX PUTIH v2: solid dark di semua layer, TANPA background-attachment:fixed ===== */
-    html {
-      max-width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      overscroll-behavior: none;
-      background: #07090e !important;
-      background-color: #07090e !important;
-    }
-    body {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      max-width: 100%;
-      height: var(--app-height, 100dvh);
-      min-height: var(--app-height, 100dvh);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      overflow: hidden;
-      overflow-x: hidden;
-      overscroll-behavior: none;
-      touch-action: none;
-      color: var(--text-main);
-      background-color: #07090e !important;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 45%);
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      /* JANGAN pakai background-attachment: fixed — bikin putih di WebView */
-      user-select: none;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
-    }
+    html, body { max-width: 100%; height: 100%; margin: 0; padding: 0; overflow-x: hidden; overscroll-behavior: none; touch-action: none; }
+    body { position: fixed; inset: 0; width: 100%; background-color: var(--bg-dark); color: var(--text-main); height: var(--app-height, 100dvh); display: flex; overflow: hidden; background-image: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 45%), radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 45%); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
     .message-content, input, textarea, [contenteditable="true"] { user-select: text; -webkit-user-select: text; -webkit-touch-callout: default; }
-
-    .app-container {
-      display: flex;
-      width: 100%;
-      height: var(--app-height, 100dvh);
-      min-height: var(--app-height, 100dvh);
-      position: relative;
-      overflow: hidden;
-      overflow-x: hidden;
-      background: #07090e;
-      background-color: #07090e;
-    }
+    .app-container { display: flex; width: 100%; height: var(--app-height, 100dvh); position: relative; overflow-x: hidden; }
 
     .warning-modal-overlay { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(2, 4, 10, 0.86); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .2s ease, visibility .2s ease; }
     .warning-modal-overlay.show { opacity: 1; visibility: visible; pointer-events: auto; }
@@ -273,16 +227,7 @@
     .account-menu-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 11px 10px; border: none; border-radius: 10px; background: transparent; color: #f87171; font-size: 0.9rem; font-weight: 500; text-align: left; cursor: pointer; }
     .account-menu-item:active { background: rgba(239, 68, 68, 0.12); }
 
-    .chat-main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      min-width: 0;
-      min-height: 0;
-      overflow: hidden;
-      background-color: var(--bg-dark);
-    }
+    .chat-main { flex: 1; display: flex; flex-direction: column; position: relative; min-width: 0; min-height: 0; overflow: hidden; }
 /* Glow dekoratif di atas halaman — sama tema dengan header Tools */
 /* Glow dekoratif di atas halaman — tetap ada */
 .chat-main::before {
@@ -409,33 +354,8 @@
       box-shadow: 0 0 12px rgba(6, 182, 212, 0.22);
     }
 
-    .messages-container {
-      padding-top: calc(env(safe-area-inset-top, 0px) + 70px) !important;
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      /* Solid dark — jangan transparent (bisa bolong putih di WebView) */
-      background: #07090e;
-      background-color: #07090e;
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-    }
-    .welcome-screen {
-      flex: 1;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      text-align: center;
-      background: transparent;
-    }
+    .messages-container { padding-top: calc(env(safe-area-inset-top, 0px) + 70px) !important; flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    .welcome-screen { flex: 1; min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
     .welcome-image { width: 58px; height: 58px; object-fit: cover; border-radius: 16px; margin-bottom: 8px; animation: floatLogo 1.5s ease-in-out infinite alternate; filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.5)); }
     @keyframes welcomeEntrance { 0% { opacity: 0; transform: scale(0.9) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
     @keyframes floatLogo { 0% { transform: translateY(0px) rotate(0deg); } 100% { transform: translateY(-12px) rotate(2deg); } }
@@ -485,15 +405,8 @@
     .image-preview-wrapper { display: none; position: relative; width: 100%; margin-bottom: -4px; padding-right: 8px; }
     .media-preview-list { display: flex; gap: 8px; align-items: center; overflow-x: auto; scrollbar-width: none; padding: 3px 4px 3px 2px; }
     .media-preview-list::-webkit-scrollbar { display:none; }
-    .media-preview-thumb { position: relative; flex: 0 0 auto; width: 64px; height: 64px; border-radius: 11px; overflow: visible; background: #0a0d16; border: 1px solid var(--panel-border); }
-    .media-preview-thumb-media { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 10px; background: #0a0d16; }
-    /* Cegah area putih kalau gambar gagal load */
-    .media-preview-thumb-media:not([src]),
-    .media-preview-thumb-media[src=""],
-    .media-preview-thumb-media[src="about:blank"] {
-      background: #0a0d16;
-      opacity: 0.4;
-    }
+    .media-preview-thumb { position: relative; flex: 0 0 auto; width: 64px; height: 64px; border-radius: 11px; overflow: visible; background: #000; border: 1px solid var(--panel-border); }
+    .media-preview-thumb-media { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 10px; }
     .media-preview-thumb-remove { position: absolute; top: -6px; right: -6px; width: 21px; height: 21px; padding: 0; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: rgba(239,68,68,.96); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; cursor: pointer; z-index: 3; box-shadow: 0 3px 10px rgba(0,0,0,.32); }
     .media-preview-thumb-remove:active { transform: scale(.92); }
     .media-preview-thumb.video-thumb::after { content:'\f04b'; font-family:'Font Awesome 6 Free'; font-weight:900; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.62); color:#fff; font-size:.7rem; pointer-events:none; z-index:2; }
