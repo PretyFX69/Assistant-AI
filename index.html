@@ -2,25 +2,87 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="color-scheme" content="dark only">
+  <meta name="theme-color" content="#07090e">
+  <style>
+    /* Critical early paint — cegah flash putih sebelum CSS utama load */
+    html, body {
+      margin: 0; padding: 0;
+      background-color: #07090e !important;
+      color: #f3f4f6;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
   <script>
     (function () {
       var lastH = 0, raf = 0;
+      function getHeight() {
+        // Prioritas: visualViewport (akurat saat keyboard) → innerHeight → clientHeight
+        var h = 0;
+        if (window.visualViewport && window.visualViewport.height) {
+          h = window.visualViewport.height;
+        } else if (window.innerHeight) {
+          h = window.innerHeight;
+        } else if (document.documentElement) {
+          h = document.documentElement.clientHeight;
+        }
+        // Jangan biarkan 0 / NaN
+        return (h && h > 100) ? Math.round(h) : 0;
+      }
       function applyHeight() {
         raf = 0;
-        var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
-        if (h === lastH) return;
+        var h = getHeight();
+        if (!h || h === lastH) return;
         lastH = h;
-        document.documentElement.style.setProperty("--app-height", h + "px");
+        var px = h + "px";
+        document.documentElement.style.setProperty("--app-height", px);
+        // Paksa body & html ikut, biar tidak bolong
+        document.documentElement.style.height = px;
+        if (document.body) {
+          document.body.style.height = px;
+          document.body.style.minHeight = px;
+        }
       }
-      function setAppHeight() { if (!raf) raf = requestAnimationFrame(applyHeight); }
+      function setAppHeight() {
+        if (!raf) raf = requestAnimationFrame(applyHeight);
+      }
+      // Jalankan segera
       applyHeight();
-      window.addEventListener("resize", setAppHeight);
-      window.addEventListener("orientationchange", setAppHeight);
+      // Event standar
+      window.addEventListener("resize", setAppHeight, { passive: true });
+      window.addEventListener("orientationchange", function () {
+        // Delay kecil biar browser selesai rotate
+        setTimeout(setAppHeight, 50);
+        setTimeout(setAppHeight, 250);
+      });
+      // visualViewport (paling penting untuk keyboard & address bar)
       if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", setAppHeight);
-        window.visualViewport.addEventListener("scroll", setAppHeight);
+        window.visualViewport.addEventListener("resize", setAppHeight, { passive: true });
+        window.visualViewport.addEventListener("scroll", setAppHeight, { passive: true });
       }
+      // Saat app kembali dari background / tab aktif lagi
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+          lastH = 0; // force re-apply
+          setAppHeight();
+        }
+      });
+      window.addEventListener("focus", function () {
+        lastH = 0;
+        setAppHeight();
+      });
+      window.addEventListener("pageshow", function () {
+        lastH = 0;
+        setAppHeight();
+      });
+      // Safety periodik singkat di awal (WebView kadang lambat report tinggi)
+      var tries = 0;
+      var safety = setInterval(function () {
+        setAppHeight();
+        if (++tries > 12) clearInterval(safety);
+      }, 120);
     })();
   </script>
   <script>
